@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">AnotherPictures</string>
+    <string name="title_images">Images</string>
+    <string name="title_collections">Collections</string>
+</resources>
