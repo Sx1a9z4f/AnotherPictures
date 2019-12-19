@@ -1,4 +1,4 @@
-package git.oversadboy.anotherpictures.model.pojo
+package git.oversadboy.anotherpictures.model.response
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize

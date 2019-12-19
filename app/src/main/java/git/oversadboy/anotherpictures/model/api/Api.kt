@@ -1,8 +1,9 @@
 package git.oversadboy.anotherpictures.model.api
 
-import git.oversadboy.anotherpictures.model.pojo.CollectionPhotos
-import git.oversadboy.anotherpictures.model.pojo.Photo
-import git.oversadboy.anotherpictures.model.pojo.SearchResponse
+import git.oversadboy.anotherpictures.model.response.CollectionPhotos
+import git.oversadboy.anotherpictures.model.response.Photo
+import git.oversadboy.anotherpictures.model.response.SearchResponse
+import git.oversadboy.anotherpictures.model.response.Token
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -24,14 +25,14 @@ interface Api {
     fun getPhoto(@Path("id") id: String): Call<Photo>
 
 
-//    @POST("/oauth/token")
-//    fun getAccessToken(
-//        @Query("client_id") client_id: String,
-//        @Query("client_secret") client_secret: String,
-//        @Query("redirect_uri") redirect_uri: String,
-//        @Query("code") code: String,
-//        @Query("grant_type") grant_type: String
-//    ): Call<AccessToken>
+    @POST("/oauth/token")
+    fun getAccessToken(
+        @Query("client_id") client_id: String,
+        @Query("client_secret") client_secret: String,
+        @Query("redirect_uri") redirect_uri: String,
+        @Query("code") code: String,
+        @Query("grant_type") grant_type: String
+    ): Call<Token>
 
     @GET("/users/{username}/likes")
     fun getUserLikes(

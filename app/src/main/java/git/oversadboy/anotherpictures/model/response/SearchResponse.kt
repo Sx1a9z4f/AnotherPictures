@@ -1,4 +1,4 @@
-package git.oversadboy.anotherpictures.model.pojo
+package git.oversadboy.anotherpictures.model.response
 
 
 data class SearchResponse(
