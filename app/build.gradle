@@ -57,6 +57,7 @@ dependencies {
     implementation 'com.snakydesign.livedataextensions:lives:1.2.1'
     implementation "android.arch.lifecycle:extensions:1.1.1"
     implementation "android.arch.lifecycle:viewmodel:1.1.1"
+    implementation "android.arch.lifecycle:common-java8:1.1.1"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.1.0"
     implementation 'com.github.hadilq.liveevent:liveevent:1.0.1'
 
@@ -68,6 +69,9 @@ dependencies {
     //Retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.6.2'
     implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.6.2'
     implementation 'com.squareup.okhttp3:logging-interceptor:3.14.0'
-    implementation 'androidx.paging:paging-runtime-ktx:2.1.0'
+
+
+    implementation 'androidx.paging:paging-runtime-ktx:2.1.1'
 }

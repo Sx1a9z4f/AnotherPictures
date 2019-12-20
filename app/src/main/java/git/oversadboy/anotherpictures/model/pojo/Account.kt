@@ -1,4 +1,4 @@
-package git.oversadboy.anotherpictures.model.response
+package git.oversadboy.anotherpictures.model.pojo
 
 data class Account(
     val client_id: Int,

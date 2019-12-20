@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
 import git.oversadboy.anotherpictures.R
-import git.oversadboy.anotherpictures.model.response.Photo
+import git.oversadboy.anotherpictures.model.pojo.Image
 import kotlinx.android.synthetic.main.fragment_images.*
 
 class ImagesFragment : Fragment() {
@@ -18,16 +18,14 @@ class ImagesFragment : Fragment() {
     private lateinit var imagesViewModel: ImagesViewModel
     private lateinit var adapterImage: ImageRecyclerAdapter
 
-
-    private lateinit var photo: ArrayList<Photo>
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        adapterImage = ImageRecyclerAdapter()
         observers()
     }
 
     private fun observers(){
-        imagesViewModel.list.observe(this, Observer <PagedList<Photo>> {adapterImage.submitList(it)})
+        imagesViewModel.liveData.observe(this, Observer <PagedList<Image>> {adapterImage.submitList(it)})
     }
 
     override fun onCreateView(

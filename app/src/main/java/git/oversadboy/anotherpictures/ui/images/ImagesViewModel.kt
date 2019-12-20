@@ -6,7 +6,7 @@ import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import git.oversadboy.anotherpictures.model.api.Api
 import git.oversadboy.anotherpictures.model.datasourse.ImageDataSourceFactory
-import git.oversadboy.anotherpictures.model.response.Photo
+import git.oversadboy.anotherpictures.model.pojo.Image
 
 class ImagesViewModel(val api: Api) : ViewModel() {
 
@@ -16,7 +16,7 @@ class ImagesViewModel(val api: Api) : ViewModel() {
         .setPageSize(10)
         .build()
 
-    var list: LiveData<PagedList<Photo>> =
+    var liveData: LiveData<PagedList<Image>> =
         LivePagedListBuilder(ImageDataSourceFactory(),configPageList)
             .build()
     // var photoPagedList: LiveData<PagedList<Photo>>
