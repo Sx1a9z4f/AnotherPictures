@@ -15,16 +15,6 @@ object Unsplash {
     const val ACCESS_KEY = "8ca469738bc1505a8f089eb6a904a4bdb380755aaddf6ab49b7d16ce427b2b78"
     const val UNSPLASH_UPLOAD_URL = "https://unsplash.com/submit"
 
-    fun getRetrofitInstance(clientId: String): Retrofit {
-        val client = OkHttpClient.Builder()
-            .addInterceptor(HeaderInterceptor(clientId)).build()
-        return Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .client(client)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-    }
-
     fun getRetrofitPostInstance(token: String): Retrofit {
         val client = OkHttpClient.Builder()
             .addInterceptor(HeaderInterceptorPost(token)).build()
@@ -33,18 +23,6 @@ object Unsplash {
             .client(client)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-    }
-}
-
-class HeaderInterceptor(private val clientId: String) : Interceptor {
-
-    @Throws(IOException::class)
-    override fun intercept(chain: Interceptor.Chain): Response {
-        var request = chain.request()
-        request = request.newBuilder()
-            .addHeader("Authorization", "Client-ID $clientId")
-            .build()
-        return chain.proceed(request)
     }
 }
 

@@ -1,9 +1,10 @@
-package git.oversadboy.anotherpictures.dagger
+package com.yatochk.secure.app.dagger
 
 import androidx.lifecycle.ViewModel
 import dagger.MapKey
 import kotlin.reflect.KClass
 
+@MustBeDocumented
 @Target(
     AnnotationTarget.FUNCTION,
     AnnotationTarget.PROPERTY_GETTER,
@@ -11,4 +12,4 @@ import kotlin.reflect.KClass
 )
 @Retention(AnnotationRetention.RUNTIME)
 @MapKey
-internal annotation class ViewModelKey(val value: KClass<out ViewModel>)
+annotation class ViewModelKey(val value: KClass<out ViewModel>)

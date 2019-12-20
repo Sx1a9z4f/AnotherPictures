@@ -1,11 +1,14 @@
-package git.oversadboy.anotherpictures.model.response
+package git.oversadboy.anotherpictures.repository.pojo
 
 import android.os.Parcelable
+import git.oversadboy.anotherpictures.model.pojo.Links
+import git.oversadboy.anotherpictures.model.pojo.Urls
+import git.oversadboy.anotherpictures.model.pojo.User
 import kotlinx.android.parcel.Parcelize
 
 
 @Parcelize
-data class Photo(
+data class Image(
     val id: String,
     val created_at: String,
     val width: Int,

@@ -5,17 +5,21 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.TextUtils
-import androidx.appcompat.app.AppCompatActivity
+import androidx.activity.viewModels
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import git.oversadboy.anotherpictures.R
+import git.oversadboy.anotherpictures.presentation.activity.BaseActivity
+import git.oversadboy.anotherpictures.view_models.ImagesViewModel
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
 
     private lateinit var sheredPreferences: SharedPreferences
+
+    private val imageViewModel: ImagesViewModel by viewModels { viewModelFactory }
 
     companion object {
         lateinit var authToken: String
@@ -41,9 +45,10 @@ class MainActivity : AppCompatActivity() {
         super.onResume()
         if (TextUtils.isEmpty(
                 getSharedPreferences("auth_token", Context.MODE_PRIVATE)
-                    .getString("token", null))
-        ){
-            startActivity(Intent(this,StartActivity::class.java))
+                    .getString("token", null)
+            )
+        ) {
+            startActivity(Intent(this, LoginActivity::class.java))
         }
     }
 }

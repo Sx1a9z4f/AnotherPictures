@@ -1,16 +1,19 @@
-package git.oversadboy.anotherpictures.model.api
+package git.oversadboy.anotherpictures.repository.api
 
 import git.oversadboy.anotherpictures.model.pojo.CollectionPhotos
-import git.oversadboy.anotherpictures.model.pojo.Image
 import git.oversadboy.anotherpictures.model.pojo.SearchResponse
 import git.oversadboy.anotherpictures.model.pojo.Token
+import git.oversadboy.anotherpictures.repository.pojo.Image
 import retrofit2.Call
-import retrofit2.http.*
+import retrofit2.http.GET
+import retrofit2.http.POST
+import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface Api {
 
     @GET("/photos")
-    fun getPhotos(@Query("page") page: Int): Call<List<Image>>
+    suspend fun getPhotos(@Query("page") page: Int): List<Image>
 
     @GET("/search/photos")
     fun searchPhotos(@Query("query") query: String, @Query("page") page: Int): Call<SearchResponse>
