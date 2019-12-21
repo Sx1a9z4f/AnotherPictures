@@ -1,14 +1,12 @@
-package git.oversadboy.anotherpictures.view_models
+package git.oversadboy.anotherpictures.ui.fragment
 
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.paging.LivePagedListBuilder
-import androidx.paging.PagedList
-import git.oversadboy.anotherpictures.repository.api.Api
-import git.oversadboy.anotherpictures.repository.pojo.Image
+import git.oversadboy.anotherpictures.model.api.Api
+import git.oversadboy.anotherpictures.model.pojo.Image
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -16,11 +14,6 @@ import javax.inject.Inject
 class ImagesViewModel @Inject constructor(
     private val api: Api
 ) : ViewModel() {
-
-    private val configPageList = PagedList.Config.Builder()
-        .setEnablePlaceholders(false)
-        .setPageSize(10)
-        .build()
 
     private val mutableImages = MutableLiveData<List<Image>>()
     val images: LiveData<List<Image>> = mutableImages
@@ -36,8 +29,6 @@ class ImagesViewModel @Inject constructor(
         }
     }
 
-
-    // var photoPagedList: LiveData<PagedList<Photo>>
 
 
 }

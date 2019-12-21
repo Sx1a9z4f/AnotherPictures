@@ -7,13 +7,13 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="git.oversadboy.anotherpictures.ui.images.ImagesFragment"
+        android:name="git.oversadboy.anotherpictures.ui.fragment.ImagesFragment"
         android:label="@string/title_images"
         tools:layout="@layout/fragment_images" />
 
     <fragment
         android:id="@+id/navigation_collections"
-        android:name="git.oversadboy.anotherpictures.ui.collections.CollectionsFragment"
+        android:name="git.oversadboy.anotherpictures.ui.fragment.CollectionsFragment"
         android:label="@string/title_collections"
         tools:layout="@layout/fragment_collections" />
 

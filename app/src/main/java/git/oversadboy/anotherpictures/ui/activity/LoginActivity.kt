@@ -1,4 +1,4 @@
-package git.oversadboy.anotherpictures.ui
+package git.oversadboy.anotherpictures.ui.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

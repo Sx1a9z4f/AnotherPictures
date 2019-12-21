@@ -1,11 +1,13 @@
-package git.oversadboy.anotherpictures.dager.modules
+package git.oversadboy.anotherpictures.dagger.modules
 
 import android.app.Application
 import android.content.Context
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import git.oversadboy.anotherpictures.model.api.Unsplash
-import git.oversadboy.anotherpictures.repository.api.Api
+import git.oversadboy.anotherpictures.model.api.Api
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -29,15 +31,20 @@ class AppModule(private val app: Application) {
     @Singleton
     @Provides
     fun provideGsonConverterFactory(): GsonConverterFactory =
-        GsonConverterFactory.create()
+        GsonConverterFactory.create(
+            GsonBuilder()
+                .setLenient()
+                .create()
+        )
+
 
     @Singleton
     @Provides
-    fun provideApi(okHttpClient: OkHttpClient): Api =
+    fun provideApi(okHttpClient: OkHttpClient, gsonConverterFactory: GsonConverterFactory): Api =
         Retrofit.Builder()
             .baseUrl(Unsplash.BASE_URL_POST)
             .client(okHttpClient)
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(gsonConverterFactory)
             .build()
             .create(Api::class.java)
 

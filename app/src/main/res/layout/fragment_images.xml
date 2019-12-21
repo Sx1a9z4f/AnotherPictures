@@ -14,7 +14,7 @@
         android:id="@+id/image_recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@layout/list_item"
+        tools:listitem="@layout/list_image"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         />
 

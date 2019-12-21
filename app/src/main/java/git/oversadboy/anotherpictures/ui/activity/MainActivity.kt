@@ -1,10 +1,8 @@
-package git.oversadboy.anotherpictures.ui
+package git.oversadboy.anotherpictures.ui.activity
 
 import android.content.Context
-import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.text.TextUtils
 import androidx.activity.viewModels
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -12,8 +10,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import git.oversadboy.anotherpictures.R
-import git.oversadboy.anotherpictures.presentation.activity.BaseActivity
-import git.oversadboy.anotherpictures.view_models.ImagesViewModel
+import git.oversadboy.anotherpictures.ui.fragment.ImagesViewModel
 
 class MainActivity : BaseActivity() {
 
@@ -41,14 +38,4 @@ class MainActivity : BaseActivity() {
         navView.setupWithNavController(navController)
     }
 
-    override fun onResume() {
-        super.onResume()
-        if (TextUtils.isEmpty(
-                getSharedPreferences("auth_token", Context.MODE_PRIVATE)
-                    .getString("token", null)
-            )
-        ) {
-            startActivity(Intent(this, LoginActivity::class.java))
-        }
-    }
 }

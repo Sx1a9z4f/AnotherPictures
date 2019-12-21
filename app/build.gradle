@@ -74,4 +74,5 @@ dependencies {
 
 
     implementation 'androidx.paging:paging-runtime-ktx:2.1.1'
+    implementation 'com.unsplash.pickerandroid:photopicker:1.0.0'
 }

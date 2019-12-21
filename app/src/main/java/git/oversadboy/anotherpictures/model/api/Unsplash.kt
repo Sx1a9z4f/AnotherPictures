@@ -15,15 +15,6 @@ object Unsplash {
     const val ACCESS_KEY = "8ca469738bc1505a8f089eb6a904a4bdb380755aaddf6ab49b7d16ce427b2b78"
     const val UNSPLASH_UPLOAD_URL = "https://unsplash.com/submit"
 
-    fun getRetrofitPostInstance(token: String): Retrofit {
-        val client = OkHttpClient.Builder()
-            .addInterceptor(HeaderInterceptorPost(token)).build()
-        return Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .client(client)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-    }
 }
 
 class HeaderInterceptorPost internal constructor(private val token: String) : Interceptor {

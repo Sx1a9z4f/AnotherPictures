@@ -1,12 +1,12 @@
-package git.oversadboy.anotherpictures.dager.modules
+package git.oversadboy.anotherpictures.dagger.modules
 
 import androidx.lifecycle.ViewModel
-import com.yatochk.secure.app.dagger.ViewModelKey
+import git.oversadboy.anotherpictures.dagger.ViewModelKey
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
-import git.oversadboy.anotherpictures.view_models.CollectionsViewModel
-import git.oversadboy.anotherpictures.view_models.ImagesViewModel
+import git.oversadboy.anotherpictures.ui.fragment.CollectionsViewModel
+import git.oversadboy.anotherpictures.ui.fragment.ImagesViewModel
 
 @Module
 abstract class ViewModelModule {

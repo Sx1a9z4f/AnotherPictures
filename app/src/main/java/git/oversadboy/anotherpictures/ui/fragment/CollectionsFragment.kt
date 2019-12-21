@@ -1,4 +1,4 @@
-package git.oversadboy.anotherpictures.ui.collections
+package git.oversadboy.anotherpictures.ui.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import git.oversadboy.anotherpictures.R
-import git.oversadboy.anotherpictures.view_models.CollectionsViewModel
 
 class CollectionsFragment : Fragment() {
 
@@ -19,11 +18,10 @@ class CollectionsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         collectionsViewModel = ViewModelProviders.of(this).get(CollectionsViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_collections, container, false)
-//        val textView: TextView = root.findViewById(R.id.text_dashboard)
+        //        val textView: TextView = root.findViewById(R.id.text_dashboard)
 //        collectionsViewModel.text.observe(this, Observer {
 //            textView.text = it
 //        })
-        return root
+        return inflater.inflate(R.layout.fragment_collections, container, false)
     }
 }

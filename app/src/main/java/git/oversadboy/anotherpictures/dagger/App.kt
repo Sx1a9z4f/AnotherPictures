@@ -1,9 +1,9 @@
-package git.oversadboy.anotherpictures.dager
+package git.oversadboy.anotherpictures.dagger
 
 import android.app.Application
-import git.oversadboy.anotherpictures.dager.components.AppComponent
-import git.oversadboy.anotherpictures.dager.components.DaggerAppComponent
-import git.oversadboy.anotherpictures.dager.modules.AppModule
+import git.oversadboy.anotherpictures.dagger.components.AppComponent
+import git.oversadboy.anotherpictures.dagger.components.DaggerAppComponent
+import git.oversadboy.anotherpictures.dagger.modules.AppModule
 
 class App : Application() {
 

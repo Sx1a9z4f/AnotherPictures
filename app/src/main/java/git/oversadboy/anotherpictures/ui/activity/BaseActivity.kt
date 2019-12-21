@@ -1,10 +1,10 @@
-package git.oversadboy.anotherpictures.presentation.activity
+package git.oversadboy.anotherpictures.ui.activity
 
 import android.os.Bundle
 import android.os.PersistableBundle
 import androidx.appcompat.app.AppCompatActivity
-import git.oversadboy.anotherpictures.dager.App
-import git.oversadboy.anotherpictures.dager.ViewModelFactory
+import git.oversadboy.anotherpictures.dagger.App
+import git.oversadboy.anotherpictures.dagger.ViewModelFactory
 import javax.inject.Inject
 
 abstract class BaseActivity : AppCompatActivity() {

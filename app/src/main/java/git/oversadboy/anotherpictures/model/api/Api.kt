@@ -1,9 +1,9 @@
-package git.oversadboy.anotherpictures.repository.api
+package git.oversadboy.anotherpictures.model.api
 
 import git.oversadboy.anotherpictures.model.pojo.CollectionPhotos
 import git.oversadboy.anotherpictures.model.pojo.SearchResponse
 import git.oversadboy.anotherpictures.model.pojo.Token
-import git.oversadboy.anotherpictures.repository.pojo.Image
+import git.oversadboy.anotherpictures.model.pojo.Image
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.POST

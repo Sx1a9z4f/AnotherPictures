@@ -1,4 +1,4 @@
-package com.yatochk.secure.app.dagger
+package git.oversadboy.anotherpictures.dagger
 
 import androidx.lifecycle.ViewModel
 import dagger.MapKey

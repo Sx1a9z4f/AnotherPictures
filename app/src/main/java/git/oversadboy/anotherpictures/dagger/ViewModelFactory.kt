@@ -1,4 +1,4 @@
-package git.oversadboy.anotherpictures.dager
+package git.oversadboy.anotherpictures.dagger
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
