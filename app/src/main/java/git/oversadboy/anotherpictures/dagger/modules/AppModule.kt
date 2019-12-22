@@ -9,7 +9,9 @@ import dagger.Module
 import dagger.Provides
 import git.oversadboy.anotherpictures.model.api.Api
 import git.oversadboy.anotherpictures.model.api.Unsplash
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
@@ -29,9 +31,33 @@ class AppModule(private val app: Application) {
 
     @Singleton
     @Provides
-    fun provideOkHttp(): OkHttpClient =
-        OkHttpClient.Builder()
+    fun provideOkHttp(): OkHttpClient {
+        val interceptor = Interceptor { chain ->
+            val url = chain.request()
+                .url
+                .newBuilder()
+                .addQueryParameter(
+                    "client_id",
+                    Unsplash.ACCESS_KEY
+                )
+                .build()
+
+            val request = chain.request()
+                .newBuilder()
+                .header("Accept-Version", "v1")
+                .url(url)
+                .build()
+
+            return@Interceptor chain.proceed(request)
+        }
+
+        return OkHttpClient.Builder()
+            .addInterceptor(interceptor)
+            .addInterceptor(HttpLoggingInterceptor().apply {
+                level = HttpLoggingInterceptor.Level.BASIC
+            })
             .build()
+    }
 
     @Singleton
     @Provides

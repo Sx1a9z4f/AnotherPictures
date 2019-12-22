@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import git.oversadboy.anotherpictures.R
 import git.oversadboy.anotherpictures.dagger.App
@@ -48,7 +47,8 @@ class ImagesFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        adapterImage = ImageRecyclerAdapter()
+        adapterImage = ImageRecyclerAdapter(
+            imageClickListener = { itemView, image, i -> imageClick(itemView, image, i) })
         image_recycler.layoutManager = GridLayoutManager(requireContext(), 2)
         image_recycler.adapter = adapterImage
         refresh = view.findViewById(R.id.image_refresh)
@@ -57,4 +57,15 @@ class ImagesFragment : BaseFragment() {
             refresh.isRefreshing = false
         }
     }
+
+    private fun imageClick(view: View, image: Image, position: Int) {
+
+        activity?.supportFragmentManager?.beginTransaction()
+            ?.setReorderingAllowed(true)
+            ?.replace(R.id.container, ImageFragment(image))
+            ?.addToBackStack("image")
+            ?.addSharedElement(view, view.transitionName)
+            ?.commit()
+    }
+
 }

@@ -16,11 +16,6 @@ class MainActivity : BaseActivity() {
 
     private lateinit var sheredPreferences: SharedPreferences
 
-    private val imageViewModel: ImagesViewModel by viewModels { viewModelFactory }
-
-    companion object {
-        lateinit var authToken: String
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -9,10 +9,9 @@ import retrofit2.http.Query
 
 interface Api {
 
-    @get:GET("/me")
-    val meProfile: Call<Me>
 
-    @GET("/photos/?client_id=8ca469738bc1505a8f089eb6a904a4bdb380755aaddf6ab49b7d16ce427b2b78")
+
+    @GET("/photos")
     suspend fun getPhotos(@Query("page") page: Int): List<Image>
 
     @GET("/search/photos")
