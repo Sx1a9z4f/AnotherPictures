@@ -24,7 +24,7 @@ class ImagesViewModel @Inject constructor(
 
     fun load() {
         viewModelScope.launch(imageExceptionHandler) {
-            val photos = api.getPhotos(2)
+            val photos = api.getPhotos(1)
             mutableImages.value = photos
         }
     }

@@ -73,6 +73,7 @@ dependencies {
     implementation 'com.squareup.okhttp3:logging-interceptor:3.14.0'
 
 
+    implementation 'com.github.bumptech.glide:glide:4.10.0'
     implementation 'androidx.paging:paging-runtime-ktx:2.1.1'
     implementation 'com.unsplash.pickerandroid:photopicker:1.0.0'
 }

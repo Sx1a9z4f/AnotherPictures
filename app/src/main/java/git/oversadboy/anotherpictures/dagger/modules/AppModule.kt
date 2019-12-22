@@ -2,12 +2,13 @@ package git.oversadboy.anotherpictures.dagger.modules
 
 import android.app.Application
 import android.content.Context
-import com.google.gson.Gson
+import android.content.SharedPreferences
+import android.preference.PreferenceManager
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
-import git.oversadboy.anotherpictures.model.api.Unsplash
 import git.oversadboy.anotherpictures.model.api.Api
+import git.oversadboy.anotherpictures.model.api.Unsplash
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -21,6 +22,10 @@ class AppModule(private val app: Application) {
     fun provideContext(): Context {
         return app
     }
+
+    @Provides
+    fun provideSP(app: Application): SharedPreferences =
+        PreferenceManager.getDefaultSharedPreferences(app)
 
     @Singleton
     @Provides
@@ -42,7 +47,7 @@ class AppModule(private val app: Application) {
     @Provides
     fun provideApi(okHttpClient: OkHttpClient, gsonConverterFactory: GsonConverterFactory): Api =
         Retrofit.Builder()
-            .baseUrl(Unsplash.BASE_URL_POST)
+            .baseUrl(Unsplash.BASE_URL)
             .client(okHttpClient)
             .addConverterFactory(gsonConverterFactory)
             .build()

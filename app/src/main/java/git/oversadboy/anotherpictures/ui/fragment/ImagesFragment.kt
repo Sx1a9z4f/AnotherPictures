@@ -6,7 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import git.oversadboy.anotherpictures.R
 import git.oversadboy.anotherpictures.dagger.App
 import git.oversadboy.anotherpictures.model.pojo.Image
@@ -16,17 +18,18 @@ import kotlinx.android.synthetic.main.fragment_images.*
 class ImagesFragment : BaseFragment() {
 
     override fun inject() {
-        App.appComponent.inject(this) //To change body of created functions use File | Settings | File Templates.
+        App.appComponent.inject(this)
     }
 
     override val layoutId = R.layout.fragment_images
+
+    private lateinit var refresh: SwipeRefreshLayout
 
     private val imagesViewModel: ImagesViewModel by viewModels { viewModelFactory }
     private lateinit var adapterImage: ImageRecyclerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        adapterImage = ImageRecyclerAdapter()
         observers()
         imagesViewModel.load()
     }
@@ -40,12 +43,18 @@ class ImagesFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        return inflater.inflate(R.layout.fragment_images, container, false)
+        return inflater.inflate(layoutId, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        image_recycler.layoutManager = LinearLayoutManager(context)
+        adapterImage = ImageRecyclerAdapter()
+        image_recycler.layoutManager = GridLayoutManager(requireContext(), 2)
         image_recycler.adapter = adapterImage
+        refresh = view.findViewById(R.id.image_refresh)
+        refresh.setOnRefreshListener {
+            imagesViewModel.load()
+            refresh.isRefreshing = false
+        }
     }
 }

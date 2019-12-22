@@ -1,9 +1,6 @@
 package git.oversadboy.anotherpictures.model.api
 
-import git.oversadboy.anotherpictures.model.pojo.CollectionPhotos
-import git.oversadboy.anotherpictures.model.pojo.SearchResponse
-import git.oversadboy.anotherpictures.model.pojo.Token
-import git.oversadboy.anotherpictures.model.pojo.Image
+import git.oversadboy.anotherpictures.model.pojo.*
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -12,7 +9,10 @@ import retrofit2.http.Query
 
 interface Api {
 
-    @GET("/photos")
+    @get:GET("/me")
+    val meProfile: Call<Me>
+
+    @GET("/photos/?client_id=8ca469738bc1505a8f089eb6a904a4bdb380755aaddf6ab49b7d16ce427b2b78")
     suspend fun getPhotos(@Query("page") page: Int): List<Image>
 
     @GET("/search/photos")
