@@ -5,7 +5,6 @@ import git.oversadboy.anotherpictures.dagger.ViewModelFactory
 import git.oversadboy.anotherpictures.dagger.modules.AppModule
 import git.oversadboy.anotherpictures.dagger.modules.ViewModelModule
 import git.oversadboy.anotherpictures.ui.base.BaseActivity
-import git.oversadboy.anotherpictures.ui.base.MainActivity
 import git.oversadboy.anotherpictures.ui.base.BaseFragment
 import javax.inject.Singleton
 
@@ -18,7 +17,6 @@ import javax.inject.Singleton
 )
 interface AppComponent {
 
-    fun inject(mainActivity: MainActivity)
     fun inject(baseActivity: BaseActivity)
     fun inject(baseFragment: BaseFragment)
     fun inject(viewModelFactory: ViewModelFactory)

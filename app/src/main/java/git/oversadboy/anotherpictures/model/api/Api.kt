@@ -18,7 +18,7 @@ interface Api {
     fun searchPhotos(@Query("query") query: String, @Query("page") page: Int): Call<SearchResponse>
 
     @GET("/collections")
-    fun getCollections(@Query("page") page: Int): Call<List<CollectionPhotos>>
+    fun getCollections(@Query("page") page: Int): Call<List<CollectionImage>>
 
     @GET("/collections/{id}/photos")
     fun getCollectionPhotos(@Path("id") id: String, @Query("page") page: Int): Call<List<Image>>

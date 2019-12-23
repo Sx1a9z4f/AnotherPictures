@@ -17,7 +17,7 @@ import javax.inject.Inject
 
 internal class ImageRecyclerAdapter(private val imageClickListener: (View, Image, Int) -> Unit) :
     ListAdapter<Image, ImageRecyclerAdapter.ImageViewHolder>(
-        DiffAlbum()
+        DiffImage()
     ) {
 
     @Inject
@@ -51,7 +51,7 @@ internal class ImageRecyclerAdapter(private val imageClickListener: (View, Image
 }
 
 
-class DiffAlbum : DiffUtil.ItemCallback<Image>() {
+class DiffImage : DiffUtil.ItemCallback<Image>() {
     override fun areItemsTheSame(oldItem: Image, newItem: Image): Boolean =
         oldItem.id == newItem.id
 

@@ -19,6 +19,6 @@ abstract class ViewModelModule {
     @Binds
     @IntoMap
     @ViewModelKey(CollectionsViewModel::class)
-    internal abstract fun browserViewModel(viewModel: CollectionsViewModel): ViewModel
+    internal abstract fun collectionViewModel(viewModel: CollectionsViewModel): ViewModel
 
 }
