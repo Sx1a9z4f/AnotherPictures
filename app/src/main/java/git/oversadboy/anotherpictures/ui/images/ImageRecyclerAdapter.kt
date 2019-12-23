@@ -1,4 +1,4 @@
-package git.oversadboy.anotherpictures.ui.adapter
+package git.oversadboy.anotherpictures.ui.images
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -16,7 +16,9 @@ import kotlinx.android.synthetic.main.list_image.view.*
 import javax.inject.Inject
 
 internal class ImageRecyclerAdapter(private val imageClickListener: (View, Image, Int) -> Unit) :
-    ListAdapter<Image, ImageRecyclerAdapter.ImageViewHolder>(DiffAlbum()) {
+    ListAdapter<Image, ImageRecyclerAdapter.ImageViewHolder>(
+        DiffAlbum()
+    ) {
 
     @Inject
     lateinit var context: Context

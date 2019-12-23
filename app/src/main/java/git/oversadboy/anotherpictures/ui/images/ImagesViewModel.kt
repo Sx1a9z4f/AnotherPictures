@@ -1,4 +1,4 @@
-package git.oversadboy.anotherpictures.ui.fragment
+package git.oversadboy.anotherpictures.ui.images
 
 import android.util.Log
 import androidx.lifecycle.LiveData

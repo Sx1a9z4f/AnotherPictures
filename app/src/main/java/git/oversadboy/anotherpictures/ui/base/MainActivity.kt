@@ -1,16 +1,15 @@
-package git.oversadboy.anotherpictures.ui.activity
+package git.oversadboy.anotherpictures.ui.base
 
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
-import androidx.activity.viewModels
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import git.oversadboy.anotherpictures.R
-import git.oversadboy.anotherpictures.ui.fragment.ImagesViewModel
+import git.oversadboy.anotherpictures.ui.base.BaseActivity
 
 class MainActivity : BaseActivity() {
 

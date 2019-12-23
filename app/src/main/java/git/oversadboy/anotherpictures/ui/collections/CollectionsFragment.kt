@@ -1,13 +1,13 @@
-package git.oversadboy.anotherpictures.ui.fragment
+package git.oversadboy.anotherpictures.ui.collections
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import git.oversadboy.anotherpictures.R
 import git.oversadboy.anotherpictures.dagger.App
+import git.oversadboy.anotherpictures.ui.base.BaseFragment
 
 class CollectionsFragment : BaseFragment() {
 

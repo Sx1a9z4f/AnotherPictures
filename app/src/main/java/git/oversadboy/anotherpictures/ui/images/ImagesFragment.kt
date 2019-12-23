@@ -1,5 +1,6 @@
-package git.oversadboy.anotherpictures.ui.fragment
+package git.oversadboy.anotherpictures.ui.images
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +12,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import git.oversadboy.anotherpictures.R
 import git.oversadboy.anotherpictures.dagger.App
 import git.oversadboy.anotherpictures.model.pojo.Image
-import git.oversadboy.anotherpictures.ui.adapter.ImageRecyclerAdapter
+import git.oversadboy.anotherpictures.ui.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_images.*
 
 class ImagesFragment : BaseFragment() {
@@ -47,8 +48,9 @@ class ImagesFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        adapterImage = ImageRecyclerAdapter(
-            imageClickListener = { itemView, image, i -> imageClick(itemView, image, i) })
+        adapterImage =
+            ImageRecyclerAdapter(
+                imageClickListener = { itemView, image, i -> imageClick(itemView, image, i) })
         image_recycler.layoutManager = GridLayoutManager(requireContext(), 2)
         image_recycler.adapter = adapterImage
         refresh = view.findViewById(R.id.image_refresh)
@@ -59,13 +61,9 @@ class ImagesFragment : BaseFragment() {
     }
 
     private fun imageClick(view: View, image: Image, position: Int) {
-
-        activity?.supportFragmentManager?.beginTransaction()
-            ?.setReorderingAllowed(true)
-            ?.replace(R.id.container, ImageFragment(image))
-            ?.addToBackStack("image")
-            ?.addSharedElement(view, view.transitionName)
-            ?.commit()
+        val intent = Intent(context, ImageActivity::class.java)
+        intent.putExtra("image",image)
+        startActivity(intent)
     }
 
 }

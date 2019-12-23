@@ -1,4 +1,4 @@
-package git.oversadboy.anotherpictures.ui.activity
+package git.oversadboy.anotherpictures.ui.base
 
 import android.os.Bundle
 import android.os.PersistableBundle

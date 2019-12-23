@@ -4,9 +4,9 @@ import dagger.Component
 import git.oversadboy.anotherpictures.dagger.ViewModelFactory
 import git.oversadboy.anotherpictures.dagger.modules.AppModule
 import git.oversadboy.anotherpictures.dagger.modules.ViewModelModule
-import git.oversadboy.anotherpictures.ui.activity.BaseActivity
-import git.oversadboy.anotherpictures.ui.activity.MainActivity
-import git.oversadboy.anotherpictures.ui.fragment.BaseFragment
+import git.oversadboy.anotherpictures.ui.base.BaseActivity
+import git.oversadboy.anotherpictures.ui.base.MainActivity
+import git.oversadboy.anotherpictures.ui.base.BaseFragment
 import javax.inject.Singleton
 
 @Singleton
