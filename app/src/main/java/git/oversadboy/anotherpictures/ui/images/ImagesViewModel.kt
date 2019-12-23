@@ -1,13 +1,34 @@
 package git.oversadboy.anotherpictures.ui.images
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import git.oversadboy.anotherpictures.model.api.Api
+import git.oversadboy.anotherpictures.model.pojo.Image
+import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class ImagesViewModel : ViewModel() {
+class ImagesViewModel @Inject constructor(
+    private val api: Api
+) : ViewModel() {
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is dog"
+    private val mutableImages = MutableLiveData<List<Image>>()
+    val images: LiveData<List<Image>> = mutableImages
+
+    private val imageExceptionHandler = CoroutineExceptionHandler { _, throwable ->
+        Log.e("Error", throwable.localizedMessage, throwable)
     }
-    val text: LiveData<String> = _text
+
+    fun load() {
+        viewModelScope.launch(imageExceptionHandler) {
+            val photos = api.getPhotos(1)
+            mutableImages.value = photos
+        }
+    }
+
+
+
 }

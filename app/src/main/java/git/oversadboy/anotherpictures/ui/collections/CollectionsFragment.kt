@@ -4,27 +4,29 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import git.oversadboy.anotherpictures.R
+import git.oversadboy.anotherpictures.dagger.App
+import git.oversadboy.anotherpictures.ui.base.BaseFragment
 
-class CollectionsFragment : Fragment() {
+class CollectionsFragment : BaseFragment() {
 
     private lateinit var collectionsViewModel: CollectionsViewModel
+
+    override fun inject() {
+        App.appComponent.inject(this)
+    }
+
+    override val layoutId: Int
+        get() = TODO("not implemented") //To change initializer of created properties use File | Settings | File Templates.
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         collectionsViewModel = ViewModelProviders.of(this).get(CollectionsViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_collections, container, false)
-//        val textView: TextView = root.findViewById(R.id.text_dashboard)
-//        collectionsViewModel.text.observe(this, Observer {
-//            textView.text = it
-//        })
-        return root
+
+        return inflater.inflate(R.layout.fragment_collections, container, false)
     }
 }
