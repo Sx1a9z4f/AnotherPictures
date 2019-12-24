@@ -31,7 +31,9 @@ class ImagesFragment : BaseFragment() {
 
 
     private fun observers() {
-        imagesViewModel.images.observe(this, Observer<PagedList<Image>> { adapterImage.submitList(it) })
+        imagesViewModel.images.observe(
+            this,
+            Observer<PagedList<Image>> { adapterImage.submitList(it) })
     }
 
     override fun onCreateView(
@@ -56,6 +58,7 @@ class ImagesFragment : BaseFragment() {
         observers()
     }
 
+    //TODO вынести в  вюмодель
     private fun imageClick(image: Image) {
         val intent = Intent(context, ImageActivity::class.java)
         intent.putExtra("image", image)

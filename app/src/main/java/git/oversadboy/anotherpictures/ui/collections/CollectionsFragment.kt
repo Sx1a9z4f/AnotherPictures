@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import git.oversadboy.anotherpictures.R
 import git.oversadboy.anotherpictures.dagger.App
 import git.oversadboy.anotherpictures.model.pojo.CollectionImage
@@ -20,13 +19,10 @@ class CollectionsFragment : BaseFragment() {
         App.appComponent.inject(this)
     }
 
-    private lateinit var refresh: SwipeRefreshLayout
     private lateinit var adapter: CollectionsPagedListAdapter
-
 
     private val collectionsViewModel: CollectionsViewModel by viewModels { viewModelFactory }
     override val layoutId: Int = R.layout.fragment_collections
-
 
     private fun observers() {
         collectionsViewModel.collection.observe(this, Observer { adapter.submitList(it) })
@@ -48,9 +44,13 @@ class CollectionsFragment : BaseFragment() {
         )
         collection_recycler.layoutManager = LinearLayoutManager(context)
         collection_recycler.adapter = adapter
-
+        collection_refresh.setOnRefreshListener {
+            collection_refresh.isRefreshing = false
+        }
         observers()
     }
+
+    //TODO вынести в  вюмодель
 
     private fun collectionClick(image: CollectionImage) {
 

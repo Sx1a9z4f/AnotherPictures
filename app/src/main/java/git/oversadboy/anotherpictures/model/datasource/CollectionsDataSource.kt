@@ -1,6 +1,7 @@
 package git.oversadboy.anotherpictures.model.datasource
 
 import androidx.paging.PageKeyedDataSource
+import androidx.paging.PagedList
 import git.oversadboy.anotherpictures.model.api.Api
 import git.oversadboy.anotherpictures.model.pojo.CollectionImage
 import retrofit2.Call
@@ -14,16 +15,16 @@ class CollectionsDataSource(val api: Api) : PageKeyedDataSource<Int, CollectionI
         params: LoadInitialParams<Int>,
         callback: LoadInitialCallback<Int, CollectionImage>
     ) {
-        api.getCollections(1).enqueue(object : Callback<List<CollectionImage>> {
+        api.getCollections(1).enqueue(object : Callback<PagedList<CollectionImage>> {
             override fun onResponse(
-                call: Call<List<CollectionImage>>,
-                response: Response<List<CollectionImage>>
+                call: Call<PagedList<CollectionImage>>,
+                response: Response<PagedList<CollectionImage>>
             ) {
                 if (response.isSuccessful)
                     callback.onResult(response.body()!!, null, 2)
             }
 
-            override fun onFailure(call: Call<List<CollectionImage>>, t: Throwable) {
+            override fun onFailure(call: Call<PagedList<CollectionImage>>, t: Throwable) {
             }
         })
     }
@@ -32,16 +33,16 @@ class CollectionsDataSource(val api: Api) : PageKeyedDataSource<Int, CollectionI
         params: LoadParams<Int>,
         callback: LoadCallback<Int, CollectionImage>
     ) {
-        api.getCollections(params.key).enqueue(object : Callback<List<CollectionImage>> {
+        api.getCollections(params.key).enqueue(object : Callback<PagedList<CollectionImage>> {
             override fun onResponse(
-                call: Call<List<CollectionImage>>,
-                response: Response<List<CollectionImage>>
+                call: Call<PagedList<CollectionImage>>,
+                response: Response<PagedList<CollectionImage>>
             ) {
                 if (response.isSuccessful)
                     callback.onResult(response.body()!!, params.key + 1)
             }
 
-            override fun onFailure(call: Call<List<CollectionImage>>, t: Throwable) {
+            override fun onFailure(call: Call<PagedList<CollectionImage>>, t: Throwable) {
             }
         })
     }
@@ -50,10 +51,10 @@ class CollectionsDataSource(val api: Api) : PageKeyedDataSource<Int, CollectionI
         params: LoadParams<Int>,
         callback: LoadCallback<Int, CollectionImage>
     ) {
-        api.getCollections(params.key).enqueue(object : Callback<List<CollectionImage>> {
+        api.getCollections(params.key).enqueue(object : Callback<PagedList<CollectionImage>> {
             override fun onResponse(
-                call: Call<List<CollectionImage>>,
-                response: Response<List<CollectionImage>>
+                call: Call<PagedList<CollectionImage>>,
+                response: Response<PagedList<CollectionImage>>
             ) {
                 if (response.isSuccessful) {
                     val key = if (params.key > 1) params.key - 1 else null
@@ -61,7 +62,7 @@ class CollectionsDataSource(val api: Api) : PageKeyedDataSource<Int, CollectionI
                 }
             }
 
-            override fun onFailure(call: Call<List<CollectionImage>>, t: Throwable) {
+            override fun onFailure(call: Call<PagedList<CollectionImage>>, t: Throwable) {
             }
         })
     }

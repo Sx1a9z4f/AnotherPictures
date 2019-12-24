@@ -2,9 +2,6 @@ package git.oversadboy.anotherpictures.model.pojo
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
-import git.oversadboy.anotherpictures.model.pojo.Links
-import git.oversadboy.anotherpictures.model.pojo.Urls
-import git.oversadboy.anotherpictures.model.pojo.User
 import kotlinx.android.parcel.Parcelize
 
 

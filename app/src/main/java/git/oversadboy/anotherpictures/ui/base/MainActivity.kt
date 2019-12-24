@@ -9,7 +9,6 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import git.oversadboy.anotherpictures.R
-import git.oversadboy.anotherpictures.ui.base.BaseActivity
 
 class MainActivity : BaseActivity() {
 

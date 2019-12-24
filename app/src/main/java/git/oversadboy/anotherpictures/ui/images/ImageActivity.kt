@@ -7,6 +7,7 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
+import androidx.activity.viewModels
 import androidx.core.app.ActivityCompat
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -24,6 +25,8 @@ class ImageActivity : BaseActivity() {
     }
 
     private lateinit var image: Image
+
+    private val imagesViewModel: ImagesViewModel by viewModels { viewModelFactory }
 
     private val layoutId: Int = R.layout.fragment_image
 
@@ -54,6 +57,8 @@ class ImageActivity : BaseActivity() {
         const val WRITE_EXTERNAL_PERMISSION_CODE = 1
     }
 
+    //TODO вынести в  вюмодель
+
     private fun downloadPhoto(url: String?, name: String) {
         if (checkPermissions()) {
             val direct = File("$MAIN_FOLDER/$name")
@@ -76,6 +81,7 @@ class ImageActivity : BaseActivity() {
         }
     }
 
+    //TODO вынести в  вюмодель
     private fun checkPermissions(): Boolean {
         return if (ActivityCompat.checkSelfPermission(
                 this,
