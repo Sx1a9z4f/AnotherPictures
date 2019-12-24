@@ -5,30 +5,25 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.LivePagedListBuilder
+import androidx.paging.PagedList
 import git.oversadboy.anotherpictures.model.api.Api
+import git.oversadboy.anotherpictures.model.datasource.ImageDataSourceFactory
 import git.oversadboy.anotherpictures.model.pojo.Image
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class ImagesViewModel @Inject constructor(
-    private val api: Api
+    api: Api
 ) : ViewModel() {
 
-    private val mutableImages = MutableLiveData<List<Image>>()
-    val images: LiveData<List<Image>> = mutableImages
-
-    private val imageExceptionHandler = CoroutineExceptionHandler { _, throwable ->
-        Log.e("Error", throwable.localizedMessage, throwable)
-    }
-
-    fun load() {
-        viewModelScope.launch(imageExceptionHandler) {
-            val photos = api.getPhotos(1)
-            mutableImages.value = photos
-        }
-    }
-
-
-
+    val images: LiveData<PagedList<Image>>  = LivePagedListBuilder(
+        ImageDataSourceFactory(api),
+        PagedList.Config.Builder()
+            .setEnablePlaceholders(false)
+            .setPageSize(10)
+            .build()
+    )
+        .build()
 }

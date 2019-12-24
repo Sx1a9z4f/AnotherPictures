@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.paging.PagedList
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import git.oversadboy.anotherpictures.R
@@ -30,7 +31,7 @@ class ImagesFragment : BaseFragment() {
 
 
     private fun observers() {
-        imagesViewModel.images.observe(this, Observer<List<Image>> { adapterImage.submitList(it) })
+        imagesViewModel.images.observe(this, Observer<PagedList<Image>> { adapterImage.submitList(it) })
     }
 
     override fun onCreateView(
@@ -50,11 +51,9 @@ class ImagesFragment : BaseFragment() {
         image_recycler.adapter = adapterImage
         refresh = view.findViewById(R.id.image_refresh)
         refresh.setOnRefreshListener {
-            imagesViewModel.load()
             refresh.isRefreshing = false
         }
         observers()
-        imagesViewModel.load()
     }
 
     private fun imageClick(image: Image) {

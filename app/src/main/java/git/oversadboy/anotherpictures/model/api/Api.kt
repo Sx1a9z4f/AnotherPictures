@@ -1,5 +1,6 @@
 package git.oversadboy.anotherpictures.model.api
 
+import androidx.paging.PagedList
 import git.oversadboy.anotherpictures.model.pojo.*
 import retrofit2.Call
 import retrofit2.http.GET
@@ -12,7 +13,7 @@ interface Api {
 
 
     @GET("/photos")
-    suspend fun getPhotos(@Query("page") page: Int): List<Image>
+     fun getPhotos(@Query("page") page: Int): Call<PagedList<Image>>
 
     @GET("/search/photos")
     fun searchPhotos(@Query("query") query: String, @Query("page") page: Int): Call<SearchResponse>
