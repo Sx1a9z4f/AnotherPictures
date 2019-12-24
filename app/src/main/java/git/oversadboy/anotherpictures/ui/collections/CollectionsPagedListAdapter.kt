@@ -11,10 +11,10 @@ import com.bumptech.glide.Glide
 import git.oversadboy.anotherpictures.R
 import git.oversadboy.anotherpictures.model.pojo.CollectionImage
 import kotlinx.android.synthetic.main.list_collectons.view.*
-import javax.inject.Inject
 
 class CollectionsPagedListAdapter(
-    val context: Context
+    private val context: Context,
+    private val collectionClickListener: (CollectionImage) -> Unit
 ) :
     PagedListAdapter<CollectionImage, CollectionsPagedListAdapter.CollectionsPagedViewHolder>(
         DiffCollection()
@@ -25,8 +25,9 @@ class CollectionsPagedListAdapter(
         fun bind(i: Int) {
             val collection = getItem(i)
             itemView.apply {
-                title_collection.text = getItem(i)?.title
-                num_s.text = getItem(i)?.total_photos.toString() + " photo"
+                title_collection.text = collection?.title
+                num_s.text = collection?.total_photos.toString() + " photo"
+                image_for_collection.setOnClickListener{collectionClickListener(collection!!)}
             }
             if (collection != null) {
                 Glide.with(context).load(collection.cover_photo?.urls?.regular)

@@ -19,9 +19,8 @@ class CollectionsDataSource(val api: Api) : PageKeyedDataSource<Int, CollectionI
                 call: Call<List<CollectionImage>>,
                 response: Response<List<CollectionImage>>
             ) {
-                if (response.isSuccessful) {
+                if (response.isSuccessful)
                     callback.onResult(response.body()!!, null, 2)
-                }
             }
 
             override fun onFailure(call: Call<List<CollectionImage>>, t: Throwable) {
@@ -38,9 +37,8 @@ class CollectionsDataSource(val api: Api) : PageKeyedDataSource<Int, CollectionI
                 call: Call<List<CollectionImage>>,
                 response: Response<List<CollectionImage>>
             ) {
-                if (response.isSuccessful) {
+                if (response.isSuccessful)
                     callback.onResult(response.body()!!, params.key + 1)
-                }
             }
 
             override fun onFailure(call: Call<List<CollectionImage>>, t: Throwable) {

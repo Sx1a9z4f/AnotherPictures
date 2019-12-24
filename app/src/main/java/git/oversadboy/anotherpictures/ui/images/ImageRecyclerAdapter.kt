@@ -15,7 +15,7 @@ import git.oversadboy.anotherpictures.model.pojo.Image
 import kotlinx.android.synthetic.main.list_image.view.*
 import javax.inject.Inject
 
-internal class ImageRecyclerAdapter(private val imageClickListener: (View, Image, Int) -> Unit) :
+internal class ImageRecyclerAdapter(private val imageClickListener: (Image) -> Unit) :
     ListAdapter<Image, ImageRecyclerAdapter.ImageViewHolder>(
         DiffImage()
     ) {
@@ -44,7 +44,7 @@ internal class ImageRecyclerAdapter(private val imageClickListener: (View, Image
                     )
                     .thumbnail(0.03f).diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(image_for_list)
-                image_for_list.setOnClickListener { imageClickListener(image_for_list, image, i) }
+                image_for_list.setOnClickListener { imageClickListener( image) }
             }
         }
     }

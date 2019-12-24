@@ -10,9 +10,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import git.oversadboy.anotherpictures.R
 import git.oversadboy.anotherpictures.dagger.App
+import git.oversadboy.anotherpictures.model.pojo.CollectionImage
 import git.oversadboy.anotherpictures.ui.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_collections.*
-import javax.inject.Inject
 
 class CollectionsFragment : BaseFragment() {
 
@@ -29,7 +29,7 @@ class CollectionsFragment : BaseFragment() {
 
 
     private fun observers() {
-           collectionsViewModel.collection.observe(this, Observer { adapter.submitList(it) })
+        collectionsViewModel.collection.observe(this, Observer { adapter.submitList(it) })
     }
 
     override fun onCreateView(
@@ -42,10 +42,18 @@ class CollectionsFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        adapter = CollectionsPagedListAdapter(context!!)
+        adapter = CollectionsPagedListAdapter(
+            context!!,
+            collectionClickListener = { image -> collectionClick(image) }
+        )
         collection_recycler.layoutManager = LinearLayoutManager(context)
         collection_recycler.adapter = adapter
+
         observers()
+    }
+
+    private fun collectionClick(image: CollectionImage) {
 
     }
+
 }

@@ -29,7 +29,6 @@ class ImagesFragment : BaseFragment() {
     private lateinit var adapterImage: ImageRecyclerAdapter
 
 
-
     private fun observers() {
         imagesViewModel.images.observe(this, Observer<List<Image>> { adapterImage.submitList(it) })
     }
@@ -46,7 +45,7 @@ class ImagesFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         adapterImage =
             ImageRecyclerAdapter(
-                imageClickListener = { itemView, image, i -> imageClick(image) })
+                imageClickListener = { image -> imageClick(image) })
         image_recycler.layoutManager = GridLayoutManager(requireContext(), 2)
         image_recycler.adapter = adapterImage
         refresh = view.findViewById(R.id.image_refresh)
@@ -58,9 +57,9 @@ class ImagesFragment : BaseFragment() {
         imagesViewModel.load()
     }
 
-    private fun imageClick( image: Image) {
+    private fun imageClick(image: Image) {
         val intent = Intent(context, ImageActivity::class.java)
-        intent.putExtra("image",image)
+        intent.putExtra("image", image)
         startActivity(intent)
     }
 
