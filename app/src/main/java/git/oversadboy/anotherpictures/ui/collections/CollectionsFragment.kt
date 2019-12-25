@@ -15,32 +15,27 @@ import kotlinx.android.synthetic.main.fragment_collections.*
 
 class CollectionsFragment : BaseFragment() {
 
+    override val layoutId: Int = R.layout.fragment_collections
+
     override fun inject() {
         App.appComponent.inject(this)
     }
 
     private lateinit var adapter: CollectionsPagedListAdapter
-
     private val collectionsViewModel: CollectionsViewModel by viewModels { viewModelFactory }
-    override val layoutId: Int = R.layout.fragment_collections
 
     private fun observers() {
-        collectionsViewModel.collection.observe(this, Observer { adapter.submitList(it) })
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        return inflater.inflate(R.layout.fragment_collections, container, false)
+        with(collectionsViewModel) {
+            collection.observe(this@CollectionsFragment, Observer { adapter.submitList(it) })
+            openCollection.observe(this@CollectionsFragment, Observer {  })
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         adapter = CollectionsPagedListAdapter(
             context!!,
-            collectionClickListener = { image -> collectionClick(image) }
+            collectionClickListener = { image -> collectionsViewModel.clickCollection(image) }
         )
         collection_recycler.layoutManager = LinearLayoutManager(context)
         collection_recycler.adapter = adapter
@@ -49,11 +44,4 @@ class CollectionsFragment : BaseFragment() {
         }
         observers()
     }
-
-    //TODO вынести в  вюмодель
-
-    private fun collectionClick(image: CollectionImage) {
-
-    }
-
 }

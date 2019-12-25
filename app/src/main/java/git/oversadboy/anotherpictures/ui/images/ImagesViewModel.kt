@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
+import com.hadilq.liveevent.LiveEvent
 import git.oversadboy.anotherpictures.model.api.Api
 import git.oversadboy.anotherpictures.model.datasource.ImageDataSourceFactory
 import git.oversadboy.anotherpictures.model.pojo.Image
@@ -21,4 +22,20 @@ class ImagesViewModel @Inject constructor(
             .build()
     )
         .build()
+
+    private val eventOpenImage = LiveEvent<Image>()
+    val openImage: LiveData<Image> = eventOpenImage
+
+    fun clickImage(image: Image) {
+        eventOpenImage.value = image
+    }
+
+    private val eventDownloadImage = LiveEvent<Pair<String?, String>>()
+    val downloadImage: LiveData<Pair<String?, String>> = eventDownloadImage
+
+    fun clickDownload(url: String?, name: String) {
+        eventDownloadImage.value = Pair(url,name)
+    }
+
+
 }

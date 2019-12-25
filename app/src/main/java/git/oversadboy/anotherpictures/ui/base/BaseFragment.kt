@@ -11,7 +11,7 @@ import javax.inject.Inject
 abstract class BaseFragment : Fragment() {
 
     @Inject
-    lateinit var viewModelFactory: ViewModelFactory
+    protected lateinit var viewModelFactory: ViewModelFactory
 
     protected abstract fun inject()
 

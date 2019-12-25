@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
+import com.hadilq.liveevent.LiveEvent
 import git.oversadboy.anotherpictures.model.api.Api
 import git.oversadboy.anotherpictures.model.datasource.CollectionsDataSourceFactory
 import git.oversadboy.anotherpictures.model.pojo.CollectionImage
@@ -21,4 +22,11 @@ class CollectionsViewModel @Inject constructor(
             .build()
     )
         .build()
+
+    private val eventOpenCollection = LiveEvent<CollectionImage>()
+    val openCollection: LiveData<CollectionImage> = eventOpenCollection
+
+    fun clickCollection(collectionImage: CollectionImage) {
+        eventOpenCollection.value = collectionImage
+    }
 }
