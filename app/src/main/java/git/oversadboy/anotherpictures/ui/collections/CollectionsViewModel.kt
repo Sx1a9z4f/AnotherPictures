@@ -17,7 +17,6 @@ class CollectionsViewModel @Inject constructor(
     var collection: LiveData<PagedList<CollectionImage>> = LivePagedListBuilder(
         CollectionsDataSourceFactory(api),
         PagedList.Config.Builder()
-            .setEnablePlaceholders(false)
             .setPageSize(10)
             .build()
     )

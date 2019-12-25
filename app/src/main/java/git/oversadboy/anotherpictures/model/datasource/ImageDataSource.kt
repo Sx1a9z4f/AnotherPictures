@@ -8,7 +8,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class ImageDataSource(val api: Api) : PageKeyedDataSource<Int, Image>() {
+class ImageDataSource(private val api: Api) : PageKeyedDataSource<Int, Image>() {
     override fun loadInitial(
         params: LoadInitialParams<Int>,
         callback: LoadInitialCallback<Int, Image>

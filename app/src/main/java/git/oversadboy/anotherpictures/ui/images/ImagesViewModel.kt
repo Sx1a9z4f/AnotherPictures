@@ -7,21 +7,38 @@ import androidx.paging.PagedList
 import com.hadilq.liveevent.LiveEvent
 import git.oversadboy.anotherpictures.model.api.Api
 import git.oversadboy.anotherpictures.model.datasource.ImageDataSourceFactory
+import git.oversadboy.anotherpictures.model.datasource.SearchDataSourceFactory
 import git.oversadboy.anotherpictures.model.pojo.Image
+import git.oversadboy.anotherpictures.model.pojo.SearchResponse
 import javax.inject.Inject
 
 class ImagesViewModel @Inject constructor(
-    api: Api
+    val api: Api
 ) : ViewModel() {
 
-    val images: LiveData<PagedList<Image>> = LivePagedListBuilder(
-        ImageDataSourceFactory(api),
-        PagedList.Config.Builder()
-            .setEnablePlaceholders(false)
-            .setPageSize(10)
-            .build()
-    )
+    private val pagedConfig = PagedList.Config.Builder()
+        .setEnablePlaceholders(false)
+        .setPageSize(10)
         .build()
+
+    val images: LiveData<PagedList<Image>> = LivePagedListBuilder(
+        ImageDataSourceFactory(api), pagedConfig
+    ).build()
+
+    lateinit var imagesSearch: LiveData<PagedList<Image>>
+
+    fun searchImages(query: String) {
+        imagesSearch = LivePagedListBuilder(
+            SearchDataSourceFactory(query, api), pagedConfig
+        ).build()
+    }
+
+    fun changeList(query: String){
+        with(images){
+            value?.dataSource?.invalidate()
+            images
+        }
+    }
 
     private val eventOpenImage = LiveEvent<Image>()
     val openImage: LiveData<Image> = eventOpenImage
@@ -34,7 +51,7 @@ class ImagesViewModel @Inject constructor(
     val downloadImage: LiveData<Pair<String?, String>> = eventDownloadImage
 
     fun clickDownload(url: String?, name: String) {
-        eventDownloadImage.value = Pair(url,name)
+        eventDownloadImage.value = Pair(url, name)
     }
 
 

@@ -40,6 +40,7 @@ class CollectionsFragment : BaseFragment() {
         collection_recycler.layoutManager = LinearLayoutManager(context)
         collection_recycler.adapter = adapter
         collection_refresh.setOnRefreshListener {
+            collectionsViewModel.collection.value?.dataSource?.invalidate()
             collection_refresh.isRefreshing = false
         }
         observers()
