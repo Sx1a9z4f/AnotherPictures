@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.paging.PagedList
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import git.oversadboy.anotherpictures.R
@@ -23,47 +24,32 @@ class ImagesFragment : BaseFragment() {
 
     override val layoutId = R.layout.fragment_images
 
-    private lateinit var refresh: SwipeRefreshLayout
-
     private val imagesViewModel: ImagesViewModel by viewModels { viewModelFactory }
     private lateinit var adapterImage: ImageRecyclerAdapter
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        observers()
-        imagesViewModel.load()
-    }
-
     private fun observers() {
-        imagesViewModel.images.observe(this, Observer<List<Image>> { adapterImage.submitList(it) })
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        return inflater.inflate(layoutId, container, false)
+        with(imagesViewModel) {
+            images.observe(
+                this@ImagesFragment,
+                Observer<PagedList<Image>> { adapterImage.submitList(it) })
+            openImage.observe(this@ImagesFragment, Observer {
+                val intent = Intent(context, ImageActivity::class.java)
+                intent.putExtra("image", it)
+                startActivity(intent)
+            })
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         adapterImage =
             ImageRecyclerAdapter(
-                imageClickListener = { itemView, image, i -> imageClick(itemView, image, i) })
+                imageClickListener = { image -> imagesViewModel.clickImage(image) })
         image_recycler.layoutManager = GridLayoutManager(requireContext(), 2)
         image_recycler.adapter = adapterImage
-        refresh = view.findViewById(R.id.image_refresh)
-        refresh.setOnRefreshListener {
-            imagesViewModel.load()
-            refresh.isRefreshing = false
+        image_refresh.setOnRefreshListener {
+            image_refresh.isRefreshing = false
         }
+        observers()
     }
-
-    private fun imageClick(view: View, image: Image, position: Int) {
-        val intent = Intent(context, ImageActivity::class.java)
-        intent.putExtra("image",image)
-        startActivity(intent)
-    }
-
 }

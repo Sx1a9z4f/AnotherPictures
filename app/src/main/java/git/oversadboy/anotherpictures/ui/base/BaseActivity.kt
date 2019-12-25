@@ -12,9 +12,11 @@ abstract class BaseActivity : AppCompatActivity() {
     @Inject
     protected lateinit var viewModelFactory: ViewModelFactory
 
+    protected abstract fun inject()
+
     override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
         super.onCreate(savedInstanceState, persistentState)
-        App.appComponent.inject(this)
+        inject()
     }
 
 }

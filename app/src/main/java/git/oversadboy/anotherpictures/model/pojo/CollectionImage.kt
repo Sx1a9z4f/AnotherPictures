@@ -8,10 +8,12 @@ data class CollectionImage(
     var id: Int? = null,
     var title: String? = null,
     var description: String? = null,
-    var publishedAt: String? = null,
-    var updatedAt: String? = null,
+    var published_at: String? = null,
+    var updated_at: String? = null,
     var curated: Boolean? = null,
-    var totalPhotos: Int? = null,
+    var total_photos: Int? = null,
     var private: Boolean? = null,
-    var shareKey: String? = null
+    var share_key: String? = null,
+    var cover_photo: CoverPhoto? = null,
+    var user: User? = null
 ) : Parcelable

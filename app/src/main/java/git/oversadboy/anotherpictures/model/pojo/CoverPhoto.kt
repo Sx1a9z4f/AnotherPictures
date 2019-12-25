@@ -13,4 +13,4 @@ data class CoverPhoto(
     var liked_by_user: Boolean? = null,
     var user: User? = null,
     var urls: Urls? = null
-):Parcelable
+) : Parcelable

@@ -8,7 +8,6 @@ import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import git.oversadboy.anotherpictures.model.api.Api
-import git.oversadboy.anotherpictures.model.api.Unsplash
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -20,6 +19,12 @@ import javax.inject.Singleton
 
 @Module
 class AppModule(private val app: Application) {
+
+    companion object {
+        private const val BASE_URL = "https://api.unsplash.com/"
+        private const val ACCESS_KEY =
+            "8ca469738bc1505a8f089eb6a904a4bdb380755aaddf6ab49b7d16ce427b2b78"
+    }
 
     @Provides
     fun provideContext(): Context {
@@ -39,7 +44,7 @@ class AppModule(private val app: Application) {
                 .newBuilder()
                 .addQueryParameter(
                     "client_id",
-                    Unsplash.ACCESS_KEY
+                    ACCESS_KEY
                 )
                 .build()
 
@@ -74,7 +79,7 @@ class AppModule(private val app: Application) {
     @Provides
     fun provideApi(okHttpClient: OkHttpClient, gsonConverterFactory: GsonConverterFactory): Api =
         Retrofit.Builder()
-            .baseUrl(Unsplash.BASE_URL)
+            .baseUrl(BASE_URL)
             .client(okHttpClient)
             .addConverterFactory(gsonConverterFactory)
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())

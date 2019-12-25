@@ -7,7 +7,9 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
+import androidx.activity.viewModels
 import androidx.core.app.ActivityCompat
+import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
@@ -19,18 +21,21 @@ import kotlinx.android.synthetic.main.fragment_image.*
 import java.io.File
 
 class ImageActivity : BaseActivity() {
-    fun inject() {
+
+    override fun inject() {
         App.appComponent.inject(this)
     }
 
-    private lateinit var image: Image
 
-    private val layoutId: Int = R.layout.fragment_image
+    private val imagesViewModel: ImagesViewModel by viewModels { viewModelFactory }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(layoutId)
-        image = intent.extras?.getParcelable("image")!!
+        setContentView(R.layout.fragment_image)
+        inject()
+        observers()
+        //это все ужасно, я переделаю, правда
+        val image: Image = intent.extras?.getParcelable("image")!!
         val width = image.width
         val height = image.height
         size.text =
@@ -43,7 +48,15 @@ class ImageActivity : BaseActivity() {
             .thumbnail(0.03f).diskCacheStrategy(DiskCacheStrategy.ALL)
             .into(full_image)
         download.setOnClickListener {
-            downloadPhoto(image.urls.regular, image.id)
+            imagesViewModel.clickDownload(image.urls.regular, image.id)
+        }
+    }
+
+    private fun observers() {
+        with(imagesViewModel) {
+            downloadImage.observe(
+                this@ImageActivity,
+                Observer { downloadImage(it.first, it.second) })
         }
     }
 
@@ -54,7 +67,7 @@ class ImageActivity : BaseActivity() {
         const val WRITE_EXTERNAL_PERMISSION_CODE = 1
     }
 
-    private fun downloadPhoto(url: String?, name: String) {
+    private fun downloadImage(url: String?, name: String) {
         if (checkPermissions()) {
             val direct = File("$MAIN_FOLDER/$name")
             if (!direct.exists()) {
