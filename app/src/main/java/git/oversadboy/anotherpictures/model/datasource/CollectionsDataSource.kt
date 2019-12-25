@@ -9,7 +9,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 
-class CollectionsDataSource(val api: Api) : PageKeyedDataSource<Int, CollectionImage>() {
+class CollectionsDataSource(private val api: Api) : PageKeyedDataSource<Int, CollectionImage>() {
 
     override fun loadInitial(
         params: LoadInitialParams<Int>,

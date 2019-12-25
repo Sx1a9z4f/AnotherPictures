@@ -6,7 +6,7 @@ import androidx.paging.PageKeyedDataSource
 import git.oversadboy.anotherpictures.model.api.Api
 import git.oversadboy.anotherpictures.model.pojo.Image
 
-class ImageDataSourceFactory(val api: Api) : DataSource.Factory<Int, Image>() {
+class ImageDataSourceFactory(private val api: Api) : DataSource.Factory<Int, Image>() {
 
     private val imageLiveDataSource =
         MutableLiveData<PageKeyedDataSource<Int, Image>>()
