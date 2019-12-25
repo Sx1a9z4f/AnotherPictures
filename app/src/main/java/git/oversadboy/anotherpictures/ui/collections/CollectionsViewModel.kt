@@ -22,10 +22,10 @@ class CollectionsViewModel @Inject constructor(
     )
         .build()
 
-    private val eventOpenCollection = LiveEvent<CollectionImage>()
-    val openCollection: LiveData<CollectionImage> = eventOpenCollection
+    private val eventOpenCollection = LiveEvent<Pair<Int, String>>()
+    val openCollection: LiveData<Pair<Int, String>> = eventOpenCollection
 
-    fun clickCollection(collectionImage: CollectionImage) {
-        eventOpenCollection.value = collectionImage
+    fun clickCollection(id: Int, name: String) {
+        eventOpenCollection.value = Pair(id, name)
     }
 }

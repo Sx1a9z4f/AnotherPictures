@@ -4,10 +4,8 @@ import androidx.paging.PagedList
 import git.oversadboy.anotherpictures.model.pojo.CollectionImage
 import git.oversadboy.anotherpictures.model.pojo.Image
 import git.oversadboy.anotherpictures.model.pojo.SearchResponse
-import git.oversadboy.anotherpictures.model.pojo.Token
 import retrofit2.Call
 import retrofit2.http.GET
-import retrofit2.http.POST
 import retrofit2.http.Path
 import retrofit2.http.Query
 

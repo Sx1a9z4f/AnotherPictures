@@ -8,11 +8,11 @@ import git.oversadboy.anotherpictures.model.pojo.Image
 
 class SearchDataSourceFactory(private val query: String,private val api: Api) : DataSource.Factory<Int, Image>() {
 
-    private val photoLiveDataSource = MutableLiveData<PageKeyedDataSource<Int, Image>>()
+    private val searchLiveDataSource = MutableLiveData<PageKeyedDataSource<Int, Image>>()
 
     override fun create(): DataSource<Int, Image> {
-        val photoDataSource = SearchDataSource(query,api)
-        photoLiveDataSource.postValue(photoDataSource)
-        return photoDataSource
+        val searchDataSource = SearchDataSource(query,api)
+        searchLiveDataSource.postValue(searchDataSource)
+        return searchDataSource
     }
 }
