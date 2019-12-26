@@ -21,12 +21,11 @@ class CollectionImagesViewModel @Inject constructor(
 
     lateinit var images: LiveData<PagedList<Image>>
 
-    fun ready(id:String) {
+    fun ready(id: String) {
         images = LivePagedListBuilder(
             CollectionImagesDataSourceFactory(id, api), pagedConfig
         ).build()
     }
-
 
     private val eventOpenImage = LiveEvent<Image>()
     val openImage: LiveData<Image> = eventOpenImage

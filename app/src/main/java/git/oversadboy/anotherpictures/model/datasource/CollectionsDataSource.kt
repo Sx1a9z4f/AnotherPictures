@@ -11,17 +11,22 @@ import retrofit2.Response
 
 class CollectionsDataSource(private val api: Api) : PageKeyedDataSource<Int, CollectionImage>() {
 
+    companion object{
+        const val START_PAGE = 1
+        const val NEXT_PAGE = 2
+    }
+
     override fun loadInitial(
         params: LoadInitialParams<Int>,
         callback: LoadInitialCallback<Int, CollectionImage>
     ) {
-        api.getCollections(1).enqueue(object : Callback<PagedList<CollectionImage>> {
+        api.getCollections(START_PAGE).enqueue(object : Callback<PagedList<CollectionImage>> {
             override fun onResponse(
                 call: Call<PagedList<CollectionImage>>,
                 response: Response<PagedList<CollectionImage>>
             ) {
                 if (response.isSuccessful)
-                    callback.onResult(response.body()!!, null, 2)
+                    callback.onResult(response.body()!!, null, NEXT_PAGE)
             }
 
             override fun onFailure(call: Call<PagedList<CollectionImage>>, t: Throwable) {
@@ -57,7 +62,7 @@ class CollectionsDataSource(private val api: Api) : PageKeyedDataSource<Int, Col
                 response: Response<PagedList<CollectionImage>>
             ) {
                 if (response.isSuccessful) {
-                    val key = if (params.key > 1) params.key - 1 else null
+                    val key = if (params.key > START_PAGE) params.key - 1 else null
                     callback.onResult(response.body()!!, key)
                 }
             }

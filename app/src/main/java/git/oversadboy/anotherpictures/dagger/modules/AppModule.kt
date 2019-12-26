@@ -74,7 +74,6 @@ class AppModule(private val app: Application) {
                 .create()
         )
 
-
     @Singleton
     @Provides
     fun provideApi(okHttpClient: OkHttpClient, gsonConverterFactory: GsonConverterFactory): Api =

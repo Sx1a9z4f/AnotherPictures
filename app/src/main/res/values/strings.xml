@@ -1,7 +1,10 @@
 <resources>
-
-    <string name="picture_from_unsplash">trans</string>
     <string name="app_name">AnotherPictures</string>
     <string name="title_images">Images</string>
     <string name="title_collections">Collections</string>
+    <string name="id">id</string>
+    <string name="download">Download</string>
+    <string name="description">description</string>
+    <string name="image_for_list">image for list</string>
+    <string name="open_image">open image</string>
 </resources>

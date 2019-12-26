@@ -20,21 +20,20 @@ class CollectionsPagedListAdapter(
         DiffCollection()
     ) {
 
-
     inner class CollectionsPagedViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         fun bind(i: Int) {
             val collection = getItem(i)
             itemView.apply {
                 title_collection.text = collection?.title
-                num_s.text = collection?.total_photos.toString() + " photo"
-                image_for_collection.setOnClickListener{collectionClickListener(collection!!)}
+                num_s.text = getNumImage(collection?.total_photos!!)
+                image_for_collection.setOnClickListener { collectionClickListener(collection) }
             }
-            if (collection != null) {
-                Glide.with(context).load(collection.cover_photo?.urls?.regular)
-                    .thumbnail(0.1f)
-                    .into(itemView.image_for_collection)
-            }
+            Glide.with(context).load(collection?.cover_photo?.urls?.regular)
+                .thumbnail(0.1f)
+                .into(itemView.image_for_collection)
         }
+
+        private fun getNumImage(totalPhotos: Int) = "$totalPhotos photo"
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CollectionsPagedViewHolder {

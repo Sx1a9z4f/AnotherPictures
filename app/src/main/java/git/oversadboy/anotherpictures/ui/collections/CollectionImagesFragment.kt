@@ -42,7 +42,6 @@ class CollectionImagesFragment : BaseFragment() {
             collection_image_refresh.isRefreshing = false
         }
         observers()
-
     }
 
     private fun observers() {

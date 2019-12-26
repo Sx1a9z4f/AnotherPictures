@@ -26,7 +26,6 @@ class ImageActivity : BaseActivity() {
         App.appComponent.inject(this)
     }
 
-
     private val imagesViewModel: ImagesViewModel by viewModels { viewModelFactory }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,13 +33,9 @@ class ImageActivity : BaseActivity() {
         setContentView(R.layout.fragment_image)
         inject()
         observers()
-        //это все ужасно, я переделаю, правда
         val image: Image = intent.extras?.getParcelable("image")!!
-        val width = image.width
-        val height = image.height
-        size.text =
-            "$width x $height"
-        description.text = image.description
+        size.text = getImageSize(image)
+        description.text = setDescription(image)
         Glide.with(this).load(image.urls.regular)
             .apply(
                 RequestOptions().dontTransform()
@@ -52,11 +47,22 @@ class ImageActivity : BaseActivity() {
         }
     }
 
+    private fun getImageSize(image: Image) = "${image.width} x ${image.height}"
+
+    private fun setDescription(image: Image): String =
+        if (image.description.isNullOrEmpty())
+            image.description!!
+        else
+            "no description"
+
+
     private fun observers() {
         with(imagesViewModel) {
             downloadImage.observe(
                 this@ImageActivity,
-                Observer { downloadImage(it.first, it.second) })
+                Observer {
+                    downloadImage(it.first, it.second)
+                })
         }
     }
 

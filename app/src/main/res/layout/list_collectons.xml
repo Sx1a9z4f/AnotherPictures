@@ -11,10 +11,10 @@
     <ImageView
         android:id="@+id/image_for_collection"
         android:layout_width="match_parent"
-        android:layout_height="240dp"
-        android:contentDescription="3"
+        android:layout_height="@dimen/height_in_collection_list"
+        android:contentDescription="@string/description"
         android:scaleType="centerCrop"
-        android:transitionName="43"
+        android:transitionName="image collection"
         tools:src="@tools:sample/avatars" />
 
     <LinearLayout
@@ -23,28 +23,26 @@
         android:background="@color/color_main_info"
         android:gravity="center"
         android:orientation="horizontal"
-        android:paddingStart="8dp"
-        android:paddingEnd="8dp">
+        android:paddingStart="@dimen/padding"
+        android:paddingEnd="@dimen/padding">
 
         <TextView
             android:id="@+id/title_collection"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/zero"
             android:layout_height="wrap_content"
             android:layout_weight="3"
             android:gravity="start|center"
             android:textColor="@color/color_light_text"
-            android:textSize="20sp"
-            tools:text="Странные дела" />
+            android:textSize="@dimen/text_size" />
 
         <TextView
             android:id="@+id/num_s"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/zero"
             android:layout_height="wrap_content"
-            android:layout_margin="4dp"
+            android:layout_margin="@dimen/margin_in_open_image"
             android:layout_weight="1"
             android:gravity="end|center"
             android:textColor="@color/color_light_text"
-            android:textSize="20sp"
-            tools:text="40 фото" />
+            android:textSize="@dimen/text_size" />
     </LinearLayout>
 </LinearLayout>

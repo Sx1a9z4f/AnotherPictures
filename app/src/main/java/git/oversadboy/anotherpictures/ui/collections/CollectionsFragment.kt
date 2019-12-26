@@ -42,7 +42,12 @@ class CollectionsFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         adapter = CollectionsPagedListAdapter(
             context!!,
-            collectionClickListener = { image -> collectionsViewModel.clickCollection(image.id!!,image.title!!) }
+            collectionClickListener = { image ->
+                collectionsViewModel.clickCollection(
+                    image.id!!,
+                    image.title!!
+                )
+            }
         )
         collection_recycler.layoutManager = LinearLayoutManager(context)
         collection_recycler.adapter = adapter

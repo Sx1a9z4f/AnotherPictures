@@ -52,7 +52,6 @@ class ImagesFragment : BaseFragment() {
             image_refresh.isRefreshing = false
         }
         observers()
-
         search_view.apply {
             setOnQueryTextListener(object : SearchView.OnQueryTextListener,
                 android.widget.SearchView.OnQueryTextListener {

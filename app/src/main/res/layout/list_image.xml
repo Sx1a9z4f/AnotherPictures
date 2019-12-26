@@ -1,20 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="240dp">
+    android:layout_height="240dp"
+    android:orientation="vertical">
 
     <ImageView
         android:id="@+id/image_for_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:elevation="8dp"
-        android:layout_margin="2dp"
-        tools:src="@tools:sample/avatars"
-        android:contentDescription="@string/picture_from_unsplash"
+        android:layout_margin="@dimen/margin_image"
+        android:contentDescription="@string/image_for_list"
         android:scaleType="centerCrop"
-        android:transitionName="@string/picture_from_unsplash"/>
+        android:transitionName="@string/image_for_list"
+        tools:src="@tools:sample/avatars" />
 
 </FrameLayout>

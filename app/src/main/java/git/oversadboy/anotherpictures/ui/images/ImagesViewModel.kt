@@ -9,7 +9,6 @@ import git.oversadboy.anotherpictures.model.api.Api
 import git.oversadboy.anotherpictures.model.datasource.ImageDataSourceFactory
 import git.oversadboy.anotherpictures.model.datasource.SearchDataSourceFactory
 import git.oversadboy.anotherpictures.model.pojo.Image
-import git.oversadboy.anotherpictures.model.pojo.SearchResponse
 import javax.inject.Inject
 
 class ImagesViewModel @Inject constructor(
@@ -31,13 +30,6 @@ class ImagesViewModel @Inject constructor(
         imagesSearch = LivePagedListBuilder(
             SearchDataSourceFactory(query, api), pagedConfig
         ).build()
-    }
-
-    fun changeList(query: String){
-        with(images){
-            value?.dataSource?.invalidate()
-            images
-        }
     }
 
     private val eventOpenImage = LiveEvent<Image>()

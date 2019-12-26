@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.collections.CollectionImagesFragment"
-    android:background="@color/color_light_text">
+    android:background="@color/color_light_text"
+    tools:context=".ui.collections.CollectionImagesFragment">
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/collection_image_refresh"
@@ -18,7 +18,5 @@
             android:layout_height="match_parent"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             tools:listitem="@layout/list_image" />
-
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
 </FrameLayout>
