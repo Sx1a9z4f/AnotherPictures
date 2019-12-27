@@ -2,9 +2,7 @@
     <dimen name="text_size">20sp</dimen>
 
     <dimen name="activity_horizontal_margin">16dp</dimen>
-    <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="zero">0dp</dimen>
-    <dimen name="size_open_image">520dp</dimen>
     <dimen name="size_siza">20dp</dimen>
     <dimen name="margin_in_open_image">4dp</dimen>
     <dimen name="height_button">40dp</dimen>

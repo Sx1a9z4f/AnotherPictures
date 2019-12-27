@@ -12,20 +12,25 @@ import git.oversadboy.anotherpictures.model.pojo.Image
 import git.oversadboy.anotherpictures.ui.base.BaseFragment
 import git.oversadboy.anotherpictures.ui.images.ImageActivity
 import git.oversadboy.anotherpictures.ui.images.ImageRecyclerAdapter
-import kotlinx.android.synthetic.main.collection_images_fragment.*
+import kotlinx.android.synthetic.main.fragment_collection_images.*
 
 class CollectionImagesFragment : BaseFragment() {
 
     companion object {
-        fun newInstance(id: String) =
+
+        private const val ID_KEY = "id"
+        private const val NAME_KEY = "name"
+
+        fun newInstance(id: String, name: String) =
             CollectionImagesFragment().apply {
                 arguments = Bundle().apply {
-                    putString("id", id)
+                    putString(ID_KEY, id)
+                    putString(NAME_KEY, name)
                 }
             }
     }
 
-    override val layoutId: Int = R.layout.collection_images_fragment
+    override val layoutId: Int = R.layout.fragment_collection_images
 
     override fun inject() {
         App.appComponent.inject(this)
@@ -37,7 +42,7 @@ class CollectionImagesFragment : BaseFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        collectionsImageViewModel.ready(arguments!!.getString("id").toString())
+        collectionsImageViewModel.ready(arguments!!.getString(ID_KEY).toString())
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

@@ -79,18 +79,28 @@ class ImagesViewModel @Inject constructor(
         }
     }
 
+    private val mutableImage = MutableLiveData<Image>()
+    val imageLiveData: LiveData<Image> = mutableImage
+
+    private val mutableSize = MutableLiveData<String>()
+    val sizeLiveData: LiveData<String> = mutableSize
 
     private val mutableDescription = MutableLiveData<String>()
     val descriptionLiveData: LiveData<String> = mutableDescription
 
     fun initImage(image: Image) {
-        mutableDescription.value = getDescription(image)
+        mutableImage.value = image
+        mutableDescription.value = image.description?.let { getDescription(it) }
+        mutableSize.value = getSize(image.width, image.height)
     }
 
-    private fun getDescription(image: Image): String =
-        if (!image.description.isNullOrEmpty())
-            image.description
+    private fun getDescription(description: String): String =
+        if (description.isNotEmpty())
+            description
         else
             localizationUtilities.getString(R.string.no_description)
+
+    private fun getSize(width: Int, height: Int): String =
+        "$width x $height"
 
 }

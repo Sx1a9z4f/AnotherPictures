@@ -11,7 +11,7 @@ import git.oversadboy.anotherpictures.model.pojo.CollectionImage
 import javax.inject.Inject
 
 class CollectionsViewModel @Inject constructor(
-    val api: Api
+    api: Api
 ) : ViewModel() {
 
     var collection: LiveData<PagedList<CollectionImage>> = LivePagedListBuilder(
@@ -22,14 +22,14 @@ class CollectionsViewModel @Inject constructor(
     )
         .build()
 
-    private val eventOpenCollection = LiveEvent<Int>()
-    val openCollection: LiveData<Int> = eventOpenCollection
+    private val eventOpenCollection = LiveEvent<Pair<Int, String>>()
+    val openCollection: LiveData<Pair<Int, String>> = eventOpenCollection
 
     fun onRefresh() {
         collection.value?.dataSource?.invalidate()
     }
 
-    fun clickCollection(id: Int) {
-        eventOpenCollection.value = id
+    fun clickCollection(id: Int, name: String) {
+        eventOpenCollection.value = Pair(id, name)
     }
 }

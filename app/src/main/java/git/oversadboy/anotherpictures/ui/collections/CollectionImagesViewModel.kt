@@ -11,7 +11,7 @@ import git.oversadboy.anotherpictures.model.pojo.Image
 import javax.inject.Inject
 
 class CollectionImagesViewModel @Inject constructor(
-    val api: Api
+   private val api: Api
 ) : ViewModel() {
 
     private val pagedConfig = PagedList.Config.Builder()
@@ -33,5 +33,4 @@ class CollectionImagesViewModel @Inject constructor(
     fun clickImage(image: Image) {
         eventOpenImage.value = image
     }
-
 }

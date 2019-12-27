@@ -1,9 +1,6 @@
 package git.oversadboy.anotherpictures.model.pojo
 
-import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
 
-@Parcelize
 data class CoverPhoto(
     var id: String? = null,
     var width: Int? = null,
@@ -13,4 +10,4 @@ data class CoverPhoto(
     var liked_by_user: Boolean? = null,
     var user: User? = null,
     var urls: Urls? = null
-) : Parcelable
+)

@@ -10,7 +10,6 @@ import androidx.activity.viewModels
 import androidx.core.app.ActivityCompat
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.request.RequestOptions
 import git.oversadboy.anotherpictures.R
 import git.oversadboy.anotherpictures.dagger.App
 import git.oversadboy.anotherpictures.model.pojo.Image
@@ -47,24 +46,26 @@ class ImageActivity : BaseActivity() {
         observers()
         val image: Image = intent.extras?.getParcelable(IMAGE_KEY)!!
         imagesViewModel.initImage(image)
-        size.text = getImageSize(image) //TODO
-        Glide.with(this).load(image.urls.regular) //TODO
-            .diskCacheStrategy(DiskCacheStrategy.ALL)
-            .into(full_image)
         download.setOnClickListener {
-            imagesViewModel.clickDownload(image.urls.regular, image.id)
+            imagesViewModel.clickDownload(image.urls.full, image.id)
         }
     }
-
-    private fun getImageSize(image: Image) = "${image.width} x ${image.height}"
 
     private fun observers() {
         with(imagesViewModel) {
             checkPermission.observe(this@ImageActivity) {
                 checkPermissionFor(it.first, it.second)
             }
+            imageLiveData.observe(this@ImageActivity) {
+                Glide.with(this@ImageActivity).load(it.urls.regular)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(full_image)
+            }
             descriptionLiveData.observe(this@ImageActivity) {
                 description.text = it
+            }
+            sizeLiveData.observe(this@ImageActivity) {
+                size.text = it
             }
         }
     }

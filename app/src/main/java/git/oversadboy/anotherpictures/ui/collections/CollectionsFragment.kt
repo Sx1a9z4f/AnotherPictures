@@ -28,9 +28,7 @@ class CollectionsFragment : BaseFragment() {
             }
             openCollection.observe(this@CollectionsFragment) {
                 val collectionImagesFragment =
-                    CollectionImagesFragment.newInstance(it.toString())
-
-                //TODO
+                    CollectionImagesFragment.newInstance(it.first.toString(),it.second)
                 activity?.supportFragmentManager?.beginTransaction()
                     ?.replace(R.id.nav_host_fragment, collectionImagesFragment)
                     ?.addToBackStack(null)
@@ -45,7 +43,8 @@ class CollectionsFragment : BaseFragment() {
             context!!,
             collectionClickListener = { image ->
                 collectionsViewModel.clickCollection(
-                    image.id!!
+                    image.id!!,
+                    image.title!!
                 )
             }
         )

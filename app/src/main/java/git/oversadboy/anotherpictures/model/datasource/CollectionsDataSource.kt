@@ -1,5 +1,6 @@
 package git.oversadboy.anotherpictures.model.datasource
 
+import android.util.Log
 import androidx.paging.PageKeyedDataSource
 import git.oversadboy.anotherpictures.model.api.Api
 import git.oversadboy.anotherpictures.model.pojo.CollectionImage
@@ -32,7 +33,7 @@ class CollectionsDataSource(private val api: Api) : PageKeyedDataSource<Int, Col
             }
 
             override fun onFailure(call: Call<List<CollectionImage>>, t: Throwable) {
-                //TODO
+                Log.d("Fail", "onFailure", t)
             }
         })
     }
@@ -54,7 +55,7 @@ class CollectionsDataSource(private val api: Api) : PageKeyedDataSource<Int, Col
             }
 
             override fun onFailure(call: Call<List<CollectionImage>>, t: Throwable) {
-                //TODO
+                Log.d("Fail", "onFailure", t)
             }
         })
     }
@@ -77,6 +78,7 @@ class CollectionsDataSource(private val api: Api) : PageKeyedDataSource<Int, Col
             }
 
             override fun onFailure(call: Call<List<CollectionImage>>, t: Throwable) {
+                Log.d("Fail", "onFailure", t)
             }
         })
     }

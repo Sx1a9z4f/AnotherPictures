@@ -1,5 +1,6 @@
 package git.oversadboy.anotherpictures.model.datasource
 
+import android.util.Log
 import androidx.paging.PageKeyedDataSource
 import git.oversadboy.anotherpictures.model.api.Api
 import git.oversadboy.anotherpictures.model.pojo.Image
@@ -24,10 +25,13 @@ class ImageDataSource(private val api: Api) : PageKeyedDataSource<Int, Image>() 
                 response: Response<List<Image>>
             ) {
                 if (response.isSuccessful)
-                    callback.onResult(response.body()!!, null, NEXT_PAGE)
+                    response.body()?.also {
+                        callback.onResult(it, null, NEXT_PAGE)
+                    }
             }
 
             override fun onFailure(call: Call<List<Image>>, t: Throwable) {
+                Log.d("Fail", "onFailure", t)
             }
         })
     }
@@ -42,10 +46,13 @@ class ImageDataSource(private val api: Api) : PageKeyedDataSource<Int, Image>() 
                 response: Response<List<Image>>
             ) {
                 if (response.isSuccessful)
-                    callback.onResult(response.body()!!, params.key + 1)
+                    response.body()?.also {
+                        callback.onResult(it, params.key + 1)
+                    }
             }
 
             override fun onFailure(call: Call<List<Image>>, t: Throwable) {
+                Log.d("Fail", "onFailure", t)
             }
         })
     }
@@ -59,13 +66,15 @@ class ImageDataSource(private val api: Api) : PageKeyedDataSource<Int, Image>() 
                 call: Call<List<Image>>,
                 response: Response<List<Image>>
             ) {
-                if (response.isSuccessful) {
-                    val key = if (params.key > START_PAGE) params.key - 1 else null
-                    callback.onResult(response.body()!!, key)
-                }
+                if (response.isSuccessful)
+                    response.body()?.also {
+                        val key = if (params.key > START_PAGE) params.key - 1 else null
+                        callback.onResult(it, key)
+                    }
             }
 
             override fun onFailure(call: Call<List<Image>>, t: Throwable) {
+                Log.d("Fail", "onFailure", t)
             }
         })
     }

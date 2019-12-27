@@ -29,7 +29,7 @@ class CollectionsPagedListAdapter(
                 image_for_collection.setOnClickListener { collectionClickListener(collection) }
             }
             Glide.with(context).load(collection?.cover_photo?.urls?.regular)
-                .thumbnail(0.1f) //TODO
+                .thumbnail(0.1f)
                 .into(itemView.image_for_collection)
         }
 

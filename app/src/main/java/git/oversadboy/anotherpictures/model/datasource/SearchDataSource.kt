@@ -1,5 +1,6 @@
 package git.oversadboy.anotherpictures.model.datasource
 
+import android.util.Log
 import androidx.paging.PageKeyedDataSource
 import git.oversadboy.anotherpictures.model.api.Api
 import git.oversadboy.anotherpictures.model.pojo.Image
@@ -8,7 +9,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class SearchDataSource (private val query: String, private val api: Api) :
+class SearchDataSource(private val query: String, private val api: Api) :
     PageKeyedDataSource<Int, Image>() {
 
     companion object {
@@ -26,10 +27,13 @@ class SearchDataSource (private val query: String, private val api: Api) :
                 response: Response<SearchResponse>
             ) {
                 if (response.isSuccessful)
-                    callback.onResult(response.body()!!.results, null, NEXT_PAGE)
+                    response.body()?.also {
+                        callback.onResult(it.results, null, NEXT_PAGE)
+                    }
             }
 
             override fun onFailure(call: Call<SearchResponse>, t: Throwable) {
+                Log.d("Fail", "onFailure", t)
             }
         })
     }
@@ -41,12 +45,15 @@ class SearchDataSource (private val query: String, private val api: Api) :
                 response: Response<SearchResponse>
             ) {
                 if (response.isSuccessful) {
-                    val key = if (params.key > START_PAGE) params.key - 1 else null
-                    callback.onResult(response.body()!!.results, key)
+                    response.body()?.also {
+                        val key = if (params.key > START_PAGE) params.key - 1 else null
+                        callback.onResult(it.results, key)
+                    }
                 }
             }
 
             override fun onFailure(call: Call<SearchResponse>, t: Throwable) {
+                Log.d("Fail", "onFailure", t)
             }
         })
     }
@@ -57,12 +64,14 @@ class SearchDataSource (private val query: String, private val api: Api) :
                 call: Call<SearchResponse>,
                 response: Response<SearchResponse>
             ) {
-                if (response.isSuccessful) {
-                    callback.onResult(response.body()!!.results, params.key + 1)
-                }
+                if (response.isSuccessful)
+                    response.body()?.also {
+                        callback.onResult(it.results, params.key + 1)
+                    }
             }
 
             override fun onFailure(call: Call<SearchResponse>, t: Throwable) {
+                Log.d("Fail", "onFailure", t)
             }
         })
     }
