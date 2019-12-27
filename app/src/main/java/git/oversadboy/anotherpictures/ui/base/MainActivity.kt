@@ -9,7 +9,6 @@ import git.oversadboy.anotherpictures.dagger.App
 
 class MainActivity : BaseActivity() {
 
-
     override fun inject() {
         App.appComponent.inject(this)
     }

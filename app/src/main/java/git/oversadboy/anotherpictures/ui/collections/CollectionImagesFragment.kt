@@ -10,10 +10,20 @@ import git.oversadboy.anotherpictures.R
 import git.oversadboy.anotherpictures.dagger.App
 import git.oversadboy.anotherpictures.model.pojo.Image
 import git.oversadboy.anotherpictures.ui.base.BaseFragment
+import git.oversadboy.anotherpictures.ui.images.ImageActivity
 import git.oversadboy.anotherpictures.ui.images.ImageRecyclerAdapter
 import kotlinx.android.synthetic.main.collection_images_fragment.*
 
 class CollectionImagesFragment : BaseFragment() {
+
+    companion object {
+        fun newInstance(id: String) =
+            CollectionImagesFragment().apply {
+                arguments = Bundle().apply {
+                    putString("id", id)
+                }
+            }
+    }
 
     override val layoutId: Int = R.layout.collection_images_fragment
 
@@ -50,12 +60,7 @@ class CollectionImagesFragment : BaseFragment() {
                 this@CollectionImagesFragment, adapterObserver
             )
             openImage.observe(this@CollectionImagesFragment, Observer {
-                val intent = android.content.Intent(
-                    context,
-                    git.oversadboy.anotherpictures.ui.images.ImageActivity::class.java
-                )
-                intent.putExtra("image", it)
-                startActivity(intent)
+                startActivity(ImageActivity.intent(context!!, it))
             })
         }
     }

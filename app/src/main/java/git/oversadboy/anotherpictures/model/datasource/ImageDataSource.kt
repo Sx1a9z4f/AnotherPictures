@@ -1,7 +1,6 @@
 package git.oversadboy.anotherpictures.model.datasource
 
 import androidx.paging.PageKeyedDataSource
-import androidx.paging.PagedList
 import git.oversadboy.anotherpictures.model.api.Api
 import git.oversadboy.anotherpictures.model.pojo.Image
 import retrofit2.Call
@@ -19,16 +18,16 @@ class ImageDataSource(private val api: Api) : PageKeyedDataSource<Int, Image>() 
         params: LoadInitialParams<Int>,
         callback: LoadInitialCallback<Int, Image>
     ) {
-        api.getPhotos(START_PAGE).enqueue(object : Callback<PagedList<Image>> {
+        api.getPhotos(START_PAGE).enqueue(object : Callback<List<Image>> {
             override fun onResponse(
-                call: Call<PagedList<Image>>,
-                response: Response<PagedList<Image>>
+                call: Call<List<Image>>,
+                response: Response<List<Image>>
             ) {
                 if (response.isSuccessful)
                     callback.onResult(response.body()!!, null, NEXT_PAGE)
             }
 
-            override fun onFailure(call: Call<PagedList<Image>>, t: Throwable) {
+            override fun onFailure(call: Call<List<Image>>, t: Throwable) {
             }
         })
     }
@@ -37,16 +36,16 @@ class ImageDataSource(private val api: Api) : PageKeyedDataSource<Int, Image>() 
         params: LoadParams<Int>,
         callback: LoadCallback<Int, Image>
     ) {
-        api.getPhotos(params.key).enqueue(object : Callback<PagedList<Image>> {
+        api.getPhotos(params.key).enqueue(object : Callback<List<Image>> {
             override fun onResponse(
-                call: Call<PagedList<Image>>,
-                response: Response<PagedList<Image>>
+                call: Call<List<Image>>,
+                response: Response<List<Image>>
             ) {
                 if (response.isSuccessful)
                     callback.onResult(response.body()!!, params.key + 1)
             }
 
-            override fun onFailure(call: Call<PagedList<Image>>, t: Throwable) {
+            override fun onFailure(call: Call<List<Image>>, t: Throwable) {
             }
         })
     }
@@ -55,11 +54,10 @@ class ImageDataSource(private val api: Api) : PageKeyedDataSource<Int, Image>() 
         params: LoadParams<Int>,
         callback: LoadCallback<Int, Image>
     ) {
-
-        api.getPhotos(params.key).enqueue(object : Callback<PagedList<Image>> {
+        api.getPhotos(params.key).enqueue(object : Callback<List<Image>> {
             override fun onResponse(
-                call: Call<PagedList<Image>>,
-                response: Response<PagedList<Image>>
+                call: Call<List<Image>>,
+                response: Response<List<Image>>
             ) {
                 if (response.isSuccessful) {
                     val key = if (params.key > START_PAGE) params.key - 1 else null
@@ -67,7 +65,7 @@ class ImageDataSource(private val api: Api) : PageKeyedDataSource<Int, Image>() 
                 }
             }
 
-            override fun onFailure(call: Call<PagedList<Image>>, t: Throwable) {
+            override fun onFailure(call: Call<List<Image>>, t: Throwable) {
             }
         })
     }

@@ -1,9 +1,7 @@
 package git.oversadboy.anotherpictures.ui.images
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.paging.PagedList
@@ -12,6 +10,7 @@ import git.oversadboy.anotherpictures.R
 import git.oversadboy.anotherpictures.dagger.App
 import git.oversadboy.anotherpictures.model.pojo.Image
 import git.oversadboy.anotherpictures.ui.base.BaseFragment
+import git.oversadboy.anotherpictures.utils.setOnQueryTextSubmit
 import kotlinx.android.synthetic.main.fragment_images.*
 
 class ImagesFragment : BaseFragment() {
@@ -33,9 +32,7 @@ class ImagesFragment : BaseFragment() {
                 this@ImagesFragment, adapterObserver
             )
             openImage.observe(this@ImagesFragment, Observer {
-                val intent = Intent(context, ImageActivity::class.java)
-                intent.putExtra("image", it)
-                startActivity(intent)
+                startActivity(ImageActivity.intent(context!!, it))
             })
         }
     }
@@ -53,22 +50,13 @@ class ImagesFragment : BaseFragment() {
         }
         observers()
         search_view.apply {
-            setOnQueryTextListener(object : SearchView.OnQueryTextListener,
-                android.widget.SearchView.OnQueryTextListener {
-                override fun onQueryTextSubmit(query: String?): Boolean {
-                    with(imagesViewModel) {
-                        query?.let { searchImages(it) }
-                        images.removeObservers(this@ImagesFragment)
-                        imagesSearch.observe(viewLifecycleOwner, adapterObserver)
-                        return false
-                    }
+            setOnQueryTextSubmit {
+                with(imagesViewModel) {
+                    it?.let { searchImages(it) }
+                    images.removeObservers(this@ImagesFragment)
+                    imagesSearch.observe(viewLifecycleOwner, adapterObserver)
                 }
-
-                override fun onQueryTextChange(newText: String?): Boolean {
-                    return false
-                }
-
-            })
+            }
 
             setOnCloseListener {
                 onActionViewCollapsed()

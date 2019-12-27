@@ -1,49 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/color_main_info"
-    android:orientation="vertical">
+    android:background="@color/color_main_info">
 
-    <ImageView
-        android:id="@+id/full_image"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/size_open_image"
-        android:contentDescription="@string/open_image"
-        android:scaleType="centerCrop"
-        android:transitionName="@string/open_image"
-        tools:src="@tools:sample/avatars" />
-
-    <TextView
-        android:id="@+id/size"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/size_siza"
-        android:layout_gravity="center"
-        android:layout_marginTop="@dimen/margin_in_open_image"
-        android:gravity="center"
-        android:textColor="@color/color_main_accent"/>
-
-    <TextView
-        android:id="@+id/description"
+    <LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_in_open_image"
-        android:gravity="center"
-        android:textColor="@color/color_light_text"
-        android:textSize="@dimen/text_size" />
+        android:orientation="vertical">
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/download"
-        style="@style/Widget.AppCompat.Button.Borderless.Colored"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/height_button"
-        android:layout_marginStart="@dimen/margin_top_end"
-        android:layout_marginTop="@dimen/margin_in_open_image"
-        android:layout_marginEnd="@dimen/margin_top_end"
-        android:background="@color/color_main_accent"
-        android:text="@string/download"
-        android:textColor="@color/color_text"
-        app:cornerRadius="@dimen/radius_button" />
-</LinearLayout>
+        <ImageView
+            android:id="@+id/full_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/open_image"
+            android:scaleType="fitCenter"
+            android:transitionName="@string/open_image"
+            tools:src="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/size"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/size_siza"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/margin_in_open_image"
+            android:gravity="center"
+            android:textColor="@color/color_main_accent" />
+
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_in_open_image"
+            android:gravity="center"
+            android:textColor="@color/color_light_text"
+            android:textSize="@dimen/text_size" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/download"
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_button"
+            android:layout_marginStart="@dimen/margin_top_end"
+            android:layout_marginTop="@dimen/margin_in_open_image"
+            android:layout_marginEnd="@dimen/margin_top_end"
+            android:background="@color/color_main_accent"
+            android:text="@string/download"
+            android:textColor="@color/color_text"
+            app:cornerRadius="@dimen/radius_button" />
+    </LinearLayout>
+</ScrollView>

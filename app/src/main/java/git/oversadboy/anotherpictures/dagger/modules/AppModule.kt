@@ -1,6 +1,7 @@
 package git.oversadboy.anotherpictures.dagger.modules
 
 import android.app.Application
+import android.app.DownloadManager
 import android.content.Context
 import android.content.SharedPreferences
 import android.preference.PreferenceManager
@@ -8,6 +9,7 @@ import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import git.oversadboy.anotherpictures.model.api.Api
+import git.oversadboy.anotherpictures.ui.base.LocalizationUtilities
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -84,5 +86,15 @@ class AppModule(private val app: Application) {
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build()
             .create(Api::class.java)
+
+    @Singleton
+    @Provides
+    fun provideLocalization() =
+        LocalizationUtilities(app)
+
+    @Singleton
+    @Provides
+    fun provideDownloasManager() =
+        app.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
 
 }

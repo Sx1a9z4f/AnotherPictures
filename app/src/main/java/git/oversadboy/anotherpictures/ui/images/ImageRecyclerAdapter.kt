@@ -44,7 +44,6 @@ internal class ImageRecyclerAdapter(private val imageClickListener: (Image) -> U
     }
 }
 
-
 class DiffImage : DiffUtil.ItemCallback<Image>() {
     override fun areItemsTheSame(oldItem: Image, newItem: Image): Boolean =
         oldItem.id == newItem.id

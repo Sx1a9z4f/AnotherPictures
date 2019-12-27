@@ -7,4 +7,5 @@
     <string name="description">description</string>
     <string name="image_for_list">image for list</string>
     <string name="open_image">open image</string>
+    <string name="no_description">no description</string>
 </resources>
