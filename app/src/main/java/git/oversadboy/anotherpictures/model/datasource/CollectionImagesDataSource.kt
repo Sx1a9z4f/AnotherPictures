@@ -4,9 +4,9 @@ import android.util.Log
 import androidx.paging.PageKeyedDataSource
 import git.oversadboy.anotherpictures.model.api.Api
 import git.oversadboy.anotherpictures.model.pojo.Image
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.observers.DisposableSingleObserver
+import io.reactivex.schedulers.Schedulers
 
 class CollectionImagesDataSource(private val id: String, private val api: Api) :
     PageKeyedDataSource<Int, Image>() {
@@ -20,50 +20,52 @@ class CollectionImagesDataSource(private val id: String, private val api: Api) :
         params: LoadInitialParams<Int>,
         callback: LoadInitialCallback<Int, Image>
     ) {
-        api.getCollectionPhotos(id, START_PAGE).enqueue(object : Callback<List<Image>> {
-            override fun onResponse(call: Call<List<Image>>, response: Response<List<Image>>) {
-                if (response.isSuccessful)
-                    response.body()?.also {
-                        callback.onResult(it, null, NEXT_PAGE)
-                    }
-            }
+        api.getCollectionPhotos(id, START_PAGE)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(object : DisposableSingleObserver<List<Image>>() {
+                override fun onSuccess(t: List<Image>) {
+                    callback.onResult(t, null, NEXT_PAGE)
+                }
 
-            override fun onFailure(call: Call<List<Image>>, t: Throwable) {
-                Log.d("Fail", "onFailure", t)
-            }
-        })
+                override fun onError(e: Throwable) {
+                    Log.d("Error", "onError", e)
+                }
+
+            })
     }
 
     override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, Image>) {
-        api.getCollectionPhotos(id, params.key).enqueue(object : Callback<List<Image>> {
-            override fun onResponse(call: Call<List<Image>>, response: Response<List<Image>>) {
-                if (response.isSuccessful) {
-                    response.body()?.also {
-                        val key = if (params.key > START_PAGE) params.key - 1 else null
-                        callback.onResult(it, key)
-                    }
+        api.getCollectionPhotos(id, params.key)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(object : DisposableSingleObserver<List<Image>>() {
+                override fun onSuccess(t: List<Image>) {
+                    val key = if (params.key > START_PAGE) params.key - 1 else null
+                    callback.onResult(t, key)
                 }
-            }
 
-            override fun onFailure(call: Call<List<Image>>, t: Throwable) {
-                Log.d("Fail", "onFailure", t)
-            }
-        })
+                override fun onError(e: Throwable) {
+                    Log.d("Error", "onError", e)
+                }
+
+            })
     }
 
     override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, Image>) {
-        api.getCollectionPhotos(id, params.key).enqueue(object : Callback<List<Image>> {
-            override fun onResponse(call: Call<List<Image>>, response: Response<List<Image>>) {
-                if (response.body() != null)
-                    response.body()?.also {
-                        callback.onResult(it, params.key + 1)
-                    }
-            }
+        api.getCollectionPhotos(id, params.key)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(object : DisposableSingleObserver<List<Image>>() {
+                override fun onSuccess(t: List<Image>) {
+                    callback.onResult(t, params.key + 1)
+                }
 
-            override fun onFailure(call: Call<List<Image>>, t: Throwable) {
-                Log.d("Fail", "onFailure", t)
-            }
-        })
+                override fun onError(e: Throwable) {
+                    Log.d("Error", "onError", e)
+                }
+
+            })
     }
 
 }

@@ -24,9 +24,14 @@ class ImagesViewModel @Inject constructor(
     private val downloadManager: DownloadManager
 ) : ViewModel() {
 
+    companion object {
+        private const val PAGE_SIZE = 10
+        private const val MIME_TYPE = "image/jpeg"
+    }
+
     private val pagedConfig = PagedList.Config.Builder()
         .setEnablePlaceholders(false)
-        .setPageSize(10)
+        .setPageSize(PAGE_SIZE)
         .build()
 
     val images: LiveData<PagedList<Image>> = LivePagedListBuilder(
@@ -69,7 +74,7 @@ class ImagesViewModel @Inject constructor(
             request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI or DownloadManager.Request.NETWORK_MOBILE)
                 .setAllowedOverRoaming(false)
                 .setTitle(name)
-                .setMimeType("image/jpeg")
+                .setMimeType(MIME_TYPE)
                 .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
                 .setDestinationInExternalPublicDir(
                     Environment.DIRECTORY_PICTURES,
@@ -103,4 +108,7 @@ class ImagesViewModel @Inject constructor(
     private fun getSize(width: Int, height: Int): String =
         "$width x $height"
 
+    fun onRefresh() {
+        images.value?.dataSource?.invalidate()
+    }
 }

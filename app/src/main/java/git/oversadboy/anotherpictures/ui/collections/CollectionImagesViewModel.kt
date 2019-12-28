@@ -11,12 +11,16 @@ import git.oversadboy.anotherpictures.model.pojo.Image
 import javax.inject.Inject
 
 class CollectionImagesViewModel @Inject constructor(
-   private val api: Api
+    private val api: Api
 ) : ViewModel() {
+
+    companion object {
+        private const val PAGE_SIZE = 10
+    }
 
     private val pagedConfig = PagedList.Config.Builder()
         .setEnablePlaceholders(false)
-        .setPageSize(10)
+        .setPageSize(PAGE_SIZE)
         .build()
 
     lateinit var images: LiveData<PagedList<Image>>

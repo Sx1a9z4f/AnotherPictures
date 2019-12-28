@@ -45,7 +45,7 @@ class ImagesFragment : BaseFragment() {
         image_recycler.layoutManager = GridLayoutManager(requireContext(), 2)
         image_recycler.adapter = adapterImage
         image_refresh.setOnRefreshListener {
-            imagesViewModel.images.value?.dataSource?.invalidate()
+            imagesViewModel.onRefresh()
             image_refresh.isRefreshing = false
         }
         observers()
@@ -63,10 +63,15 @@ class ImagesFragment : BaseFragment() {
                 with(imagesViewModel) {
                     imagesSearch.removeObservers(this@ImagesFragment)
                     images.observe(viewLifecycleOwner, adapterObserver)
-                    imagesViewModel.images.value?.dataSource?.invalidate()
+                    imagesViewModel.onRefresh()
                 }
                 true
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        imagesViewModel.onRefresh()
     }
 }

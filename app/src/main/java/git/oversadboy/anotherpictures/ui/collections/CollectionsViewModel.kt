@@ -14,10 +14,14 @@ class CollectionsViewModel @Inject constructor(
     api: Api
 ) : ViewModel() {
 
+    companion object {
+        private const val PAGE_SIZE = 10
+    }
+
     var collection: LiveData<PagedList<CollectionImage>> = LivePagedListBuilder(
         CollectionsDataSourceFactory(api),
         PagedList.Config.Builder()
-            .setPageSize(10)
+            .setPageSize(PAGE_SIZE)
             .build()
     )
         .build()

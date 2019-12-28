@@ -94,7 +94,7 @@ class AppModule(private val app: Application) {
 
     @Singleton
     @Provides
-    fun provideDownloasManager() =
+    fun provideDownloadManager() =
         app.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
 
 }
