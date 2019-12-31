@@ -1,12 +1,10 @@
 package git.oversadboy.anotherpictures.model.datasource
 
-import android.util.Log
 import androidx.paging.PageKeyedDataSource
 import git.oversadboy.anotherpictures.model.api.Api
 import git.oversadboy.anotherpictures.model.pojo.Image
-import git.oversadboy.anotherpictures.model.pojo.SearchResponse
+import git.oversadboy.anotherpictures.utils.subscribes
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
 
 class SearchDataSource(private val query: String, private val api: Api) :
@@ -24,45 +22,23 @@ class SearchDataSource(private val query: String, private val api: Api) :
         api.searchPhotos(query, START_PAGE)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : DisposableSingleObserver<SearchResponse>() {
-                override fun onSuccess(t: SearchResponse) {
-                    callback.onResult(t.results, null, NEXT_PAGE)
-                }
-
-                override fun onError(e: Throwable) {
-                    Log.d("Error", "onError", e)
-                }
-            })
+            .subscribes { callback.onResult(it.results, null, NEXT_PAGE) }
     }
 
     override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, Image>) {
-        api.searchPhotos(query, START_PAGE)
+        api.searchPhotos(query, params.key)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : DisposableSingleObserver<SearchResponse>() {
-                override fun onSuccess(t: SearchResponse) {
-                    val key = if (params.key > START_PAGE) params.key - 1 else null
-                    callback.onResult(t.results, key)
-                }
-
-                override fun onError(e: Throwable) {
-                    Log.d("Error", "onError", e)
-                }
-            })
+            .subscribes {
+                val key = if (params.key > START_PAGE) params.key - 1 else null
+                callback.onResult(it.results, key)
+            }
     }
 
     override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, Image>) {
-        api.searchPhotos(query, START_PAGE)
+        api.searchPhotos(query, params.key)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : DisposableSingleObserver<SearchResponse>() {
-                override fun onSuccess(t: SearchResponse) {
-                    callback.onResult(t.results, params.key + 1)
-                }
-
-                override fun onError(e: Throwable) {
-                    Log.d("Error", "onError", e)
-                }
-            })
+            .subscribes { callback.onResult(it.results, params.key + 1) }
     }
 }

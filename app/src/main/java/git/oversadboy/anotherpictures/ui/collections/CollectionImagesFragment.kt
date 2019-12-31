@@ -12,6 +12,7 @@ import git.oversadboy.anotherpictures.model.pojo.Image
 import git.oversadboy.anotherpictures.ui.base.BaseFragment
 import git.oversadboy.anotherpictures.ui.images.ImageActivity
 import git.oversadboy.anotherpictures.ui.images.ImageRecyclerAdapter
+import git.oversadboy.anotherpictures.utils.observe
 import kotlinx.android.synthetic.main.fragment_collection_images.*
 
 class CollectionImagesFragment : BaseFragment() {
@@ -53,7 +54,7 @@ class CollectionImagesFragment : BaseFragment() {
         collection_image_recycler.layoutManager = GridLayoutManager(requireContext(), 2)
         collection_image_recycler.adapter = adapterImage
         collection_image_refresh.setOnRefreshListener {
-            collectionsImageViewModel.images.value?.dataSource?.invalidate()
+            collectionsImageViewModel.onRefresh()
             collection_image_refresh.isRefreshing = false
         }
         observers()
@@ -64,9 +65,9 @@ class CollectionImagesFragment : BaseFragment() {
             images.observe(
                 this@CollectionImagesFragment, adapterObserver
             )
-            openImage.observe(this@CollectionImagesFragment, Observer {
+            openImage.observe(this@CollectionImagesFragment){
                 startActivity(ImageActivity.intent(context!!, it))
-            })
+            }
         }
     }
 }

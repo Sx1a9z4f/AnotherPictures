@@ -51,7 +51,7 @@ class CollectionsPagedListAdapter(
 
 class DiffCollection : DiffUtil.ItemCallback<CollectionImage>() {
     override fun areItemsTheSame(oldItem: CollectionImage, newItem: CollectionImage): Boolean =
-        oldItem.id == newItem.id
+        oldItem == newItem
 
     override fun areContentsTheSame(oldItem: CollectionImage, newItem: CollectionImage): Boolean =
         oldItem.title == newItem.title

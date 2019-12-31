@@ -1,11 +1,10 @@
 package git.oversadboy.anotherpictures.model.datasource
 
-import android.util.Log
 import androidx.paging.PageKeyedDataSource
 import git.oversadboy.anotherpictures.model.api.Api
 import git.oversadboy.anotherpictures.model.pojo.Image
+import git.oversadboy.anotherpictures.utils.subscribes
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
 
 
@@ -23,16 +22,7 @@ class ImageDataSource(private val api: Api) : PageKeyedDataSource<Int, Image>() 
         api.getPhotos(START_PAGE)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : DisposableSingleObserver<List<Image>>() {
-                override fun onSuccess(t: List<Image>) {
-                    callback.onResult(t, null, NEXT_PAGE)
-                }
-
-                override fun onError(e: Throwable) {
-                    Log.d("Error", "onError", e)
-                }
-
-            })
+            .subscribes { callback.onResult(it, null, NEXT_PAGE) }
     }
 
     override fun loadAfter(
@@ -42,15 +32,7 @@ class ImageDataSource(private val api: Api) : PageKeyedDataSource<Int, Image>() 
         api.getPhotos(params.key)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : DisposableSingleObserver<List<Image>>() {
-                override fun onSuccess(t: List<Image>) {
-                    callback.onResult(t, params.key + 1)
-                }
-
-                override fun onError(e: Throwable) {
-                    Log.d("Error", "onError", e)
-                }
-            })
+            .subscribes { callback.onResult(it, params.key + 1) }
     }
 
     override fun loadBefore(
@@ -60,15 +42,9 @@ class ImageDataSource(private val api: Api) : PageKeyedDataSource<Int, Image>() 
         api.getPhotos(params.key)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : DisposableSingleObserver<List<Image>>() {
-                override fun onSuccess(t: List<Image>) {
-                    val key = if (params.key > START_PAGE) params.key - 1 else null
-                    callback.onResult(t, key)
-                }
-
-                override fun onError(e: Throwable) {
-                    Log.d("Error", "onError", e)
-                }
-            })
+            .subscribes {
+                val key = if (params.key > START_PAGE) params.key - 1 else null
+                callback.onResult(it, key)
+            }
     }
 }

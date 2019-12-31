@@ -23,6 +23,9 @@ import javax.inject.Singleton
 class AppModule(private val app: Application) {
 
     companion object {
+        private const val CLIENT_ID_KEY = "client_id"
+        private const val ACCEPT_VERSION_KEY = "Accept-Version"
+        private const val VERSION_KEY = "v1"
         private const val BASE_URL = "https://api.unsplash.com/"
         private const val ACCESS_KEY =
             "8ca469738bc1505a8f089eb6a904a4bdb380755aaddf6ab49b7d16ce427b2b78"
@@ -45,14 +48,14 @@ class AppModule(private val app: Application) {
                 .url
                 .newBuilder()
                 .addQueryParameter(
-                    "client_id",
+                    CLIENT_ID_KEY,
                     ACCESS_KEY
                 )
                 .build()
 
             val request = chain.request()
                 .newBuilder()
-                .header("Accept-Version", "v1")
+                .header(ACCEPT_VERSION_KEY, VERSION_KEY)
                 .url(url)
                 .build()
 

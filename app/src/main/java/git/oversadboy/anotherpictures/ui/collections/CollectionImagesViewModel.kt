@@ -37,4 +37,8 @@ class CollectionImagesViewModel @Inject constructor(
     fun clickImage(image: Image) {
         eventOpenImage.value = image
     }
+
+    fun onRefresh() {
+        images.value?.dataSource?.invalidate()
+    }
 }

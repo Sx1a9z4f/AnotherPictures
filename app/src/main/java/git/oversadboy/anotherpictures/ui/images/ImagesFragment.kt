@@ -10,6 +10,7 @@ import git.oversadboy.anotherpictures.R
 import git.oversadboy.anotherpictures.dagger.App
 import git.oversadboy.anotherpictures.model.pojo.Image
 import git.oversadboy.anotherpictures.ui.base.BaseFragment
+import git.oversadboy.anotherpictures.utils.observe
 import git.oversadboy.anotherpictures.utils.setOnQueryTextSubmit
 import kotlinx.android.synthetic.main.fragment_images.*
 
@@ -31,9 +32,9 @@ class ImagesFragment : BaseFragment() {
             images.observe(
                 this@ImagesFragment, adapterObserver
             )
-            openImage.observe(this@ImagesFragment, Observer {
+            openImage.observe(this@ImagesFragment) {
                 startActivity(ImageActivity.intent(context!!, it))
-            })
+            }
         }
     }
 
@@ -70,8 +71,8 @@ class ImagesFragment : BaseFragment() {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        imagesViewModel.onRefresh()
-    }
+//    override fun onResume() {
+//        super.onResume()
+//        imagesViewModel.onRefresh()
+//    }
 }
